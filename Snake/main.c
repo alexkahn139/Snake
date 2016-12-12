@@ -7,9 +7,23 @@
 //
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "grid.h"
+#include "gui.h"
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    printf("Hello, World!\n");
+
+int main(int argc, char *argv[]) {
+    if (argc == 3){ //3 argumenten + ./main
+        int height = atoi(argv[1]);
+        int width = atoi(argv[2]);
+        
+        initialize_grid(height, width);
+        initialize_gui(height, width);
+        while (1) { read_input(); }
+    }
+    else {
+        printf("You need to give 2 arguments \n");
+    }
     return 0;
 }

@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		AC39F6F81DFDE7E600177E89 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = AC39F6F71DFDE7E600177E89 /* main.c */; };
+		AC39F6FF1DFDED7E00177E89 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC39F6FE1DFDED7E00177E89 /* SDL.framework */; };
+		AC39F7021DFDED8A00177E89 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = AC39F7011DFDED8A00177E89 /* SDLMain.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		AC39F7051DFDEDC700177E89 /* game.c in Sources */ = {isa = PBXBuildFile; fileRef = AC39F7031DFDEDC700177E89 /* game.c */; };
+		AC39F70A1DFDEEFA00177E89 /* Snake.c in Sources */ = {isa = PBXBuildFile; fileRef = AC39F7081DFDEEFA00177E89 /* Snake.c */; };
+		AC39F70D1DFDF2C100177E89 /* grid.c in Sources */ = {isa = PBXBuildFile; fileRef = AC39F70B1DFDF2C100177E89 /* grid.c */; };
+		AC39F7121DFE253800177E89 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC39F7111DFE253800177E89 /* Cocoa.framework */; };
+		AC39F7151DFE27B900177E89 /* gui.c in Sources */ = {isa = PBXBuildFile; fileRef = AC39F7131DFE27B900177E89 /* gui.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +32,18 @@
 /* Begin PBXFileReference section */
 		AC39F6F41DFDE7E600177E89 /* Snake */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Snake; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC39F6F71DFDE7E600177E89 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		AC39F6FE1DFDED7E00177E89 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL.framework; sourceTree = "<group>"; };
+		AC39F7001DFDED8A00177E89 /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLMain.h; sourceTree = "<group>"; };
+		AC39F7011DFDED8A00177E89 /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDLMain.m; sourceTree = "<group>"; };
+		AC39F7031DFDEDC700177E89 /* game.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = game.c; sourceTree = "<group>"; };
+		AC39F7041DFDEDC700177E89 /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
+		AC39F7081DFDEEFA00177E89 /* Snake.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Snake.c; sourceTree = "<group>"; };
+		AC39F7091DFDEEFA00177E89 /* Snake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Snake.h; sourceTree = "<group>"; };
+		AC39F70B1DFDF2C100177E89 /* grid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = grid.c; sourceTree = "<group>"; };
+		AC39F70C1DFDF2C100177E89 /* grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = grid.h; sourceTree = "<group>"; };
+		AC39F7111DFE253800177E89 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		AC39F7131DFE27B900177E89 /* gui.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gui.c; sourceTree = "<group>"; };
+		AC39F7141DFE27B900177E89 /* gui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gui.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +51,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC39F7121DFE253800177E89 /* Cocoa.framework in Frameworks */,
+				AC39F6FF1DFDED7E00177E89 /* SDL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +64,8 @@
 			children = (
 				AC39F6F61DFDE7E600177E89 /* Snake */,
 				AC39F6F51DFDE7E600177E89 /* Products */,
+				AC39F6FE1DFDED7E00177E89 /* SDL.framework */,
+				AC39F7101DFE253800177E89 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,9 +80,43 @@
 		AC39F6F61DFDE7E600177E89 /* Snake */ = {
 			isa = PBXGroup;
 			children = (
-				AC39F6F71DFDE7E600177E89 /* main.c */,
+				AC39F7061DFDEE1100177E89 /* Sourcefiles */,
+				AC39F7071DFDEE1D00177E89 /* Headerfiles */,
 			);
 			path = Snake;
+			sourceTree = "<group>";
+		};
+		AC39F7061DFDEE1100177E89 /* Sourcefiles */ = {
+			isa = PBXGroup;
+			children = (
+				AC39F6F71DFDE7E600177E89 /* main.c */,
+				AC39F7031DFDEDC700177E89 /* game.c */,
+				AC39F70B1DFDF2C100177E89 /* grid.c */,
+				AC39F7081DFDEEFA00177E89 /* Snake.c */,
+				AC39F7131DFE27B900177E89 /* gui.c */,
+			);
+			name = Sourcefiles;
+			sourceTree = "<group>";
+		};
+		AC39F7071DFDEE1D00177E89 /* Headerfiles */ = {
+			isa = PBXGroup;
+			children = (
+				AC39F7141DFE27B900177E89 /* gui.h */,
+				AC39F7041DFDEDC700177E89 /* game.h */,
+				AC39F7001DFDED8A00177E89 /* SDLMain.h */,
+				AC39F7011DFDED8A00177E89 /* SDLMain.m */,
+				AC39F70C1DFDF2C100177E89 /* grid.h */,
+				AC39F7091DFDEEFA00177E89 /* Snake.h */,
+			);
+			name = Headerfiles;
+			sourceTree = "<group>";
+		};
+		AC39F7101DFE253800177E89 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AC39F7111DFE253800177E89 /* Cocoa.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,6 +177,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC39F7021DFDED8A00177E89 /* SDLMain.m in Sources */,
+				AC39F70D1DFDF2C100177E89 /* grid.c in Sources */,
+				AC39F7051DFDEDC700177E89 /* game.c in Sources */,
+				AC39F7151DFE27B900177E89 /* gui.c in Sources */,
+				AC39F70A1DFDEEFA00177E89 /* Snake.c in Sources */,
 				AC39F6F81DFDE7E600177E89 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,7 +279,13 @@
 		AC39F6FC1DFDE7E600177E89 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_ARC = NO;
 				DEVELOPMENT_TEAM = 4HJ4L68H4E;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -225,7 +293,13 @@
 		AC39F6FD1DFDE7E600177E89 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_ARC = NO;
 				DEVELOPMENT_TEAM = 4HJ4L68H4E;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -249,6 +323,7 @@
 				AC39F6FD1DFDE7E600177E89 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
