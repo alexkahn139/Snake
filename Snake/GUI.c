@@ -28,6 +28,16 @@ void draw_cell(int x, int y, int kleur){
     SDL_BlitSurface(images[kleur], NULL, window, &offset);
     
 }
+void draw_snake_part(int part){
+    SDL_Rect offset;
+    //truct Coordinate coordinates = get_bodypart_coordinates(part);
+    //int x = get_bodypart_coordinate_x(0);
+    //int y = get_bodypart_coordinate_x(0);
+    //offset.x = x*IMAGE_WIDTH;
+    //offset.y = y*IMAGE_HEIGHT;
+    
+    SDL_BlitSurface(images[HEAD], NULL, window, &offset);
+}
 void draw_grid(int width, int height) {
     
     /*
@@ -43,9 +53,9 @@ void draw_grid(int width, int height) {
             //else draw_cell(x, y, COVERED);
         }
     }
-    for (int i = 0; i < snake_length; i++) {
-        printf("ok");
-    }
+    //for (int i = 0; i < snake_length; i++) {
+        //draw_snake_part(0);
+    //}
     SDL_Flip(window);
 }
 
@@ -72,7 +82,7 @@ void read_input(int width, int height) {
         switch (event.type) {
             case SDL_QUIT:
                 // De speler wil het spel afsluiten.
-                
+                exit(1);
             case SDL_KEYDOWN:
                 switch (event.key.keysym.sym) {
                     case SDLK_p:

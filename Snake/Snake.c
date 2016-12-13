@@ -11,15 +11,16 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define SNAKE_HEAD = get_bodypart()
-static struct Snake snake;
+
+struct Snake snake;
+
 int snake_max_size = 25; //Na een bepaalde lengte wordt er een nieuw level begonnen
 
- int snake_length = 1;
+int snake_length = 1;
  
 
 void allocate_snake(int height, int width){
-    snake.snakebody  = (struct Bodypart*)malloc(snake_length * sizeof(struct Bodypart));
+    snake.snakebody = (struct Bodypart*)malloc(snake_length * sizeof(struct Bodypart));
     snake.snakebody[0].direction = RIGHT;
     snake.snakebody[0].coordinates.x = floor(height/2);
     snake.snakebody[0].coordinates.y =  floor(width/2);
@@ -27,12 +28,9 @@ void allocate_snake(int height, int width){
     }
 
 
-
 void snake_eat(){
     snake_length++;
 }
-
-
 
 void move_head(){
       //the head

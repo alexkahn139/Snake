@@ -34,7 +34,10 @@ struct Bodypart{
 void initialize_snake(int grid_width, int grid_height);
 void move_snake();
 
+//extern struct Snake snake;
 
 extern int snake_length;
 
+int get_bodypart_coordinate_x(int part);
+int get_bodypart_coordinate_y(int part);
 #endif /* Snake_h */
