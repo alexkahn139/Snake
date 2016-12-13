@@ -2,6 +2,8 @@
 #define GUI_H_
 
 #include "SDL/SDL.h"
+#include "grid.h"
+#include "Snake.h"
 
 /*
  * De hoogte en breedte (in pixels) van de afbeeldingen die getoond worden.
@@ -19,10 +21,15 @@
  * De functie neemt als argumenten ook de breedte en de hoogte van het speelveld.
  */
 void initialize_gui(int grid_width, int grid_height);
-
+void read_input(int width, int height);
 /*
  * Tekent het huidige veld in het venster. Deze functie moeten jullie dus zelf implementeren.
  */
-//void draw_grid(void);
-
+void draw_grid(int width, int height);
+enum Type_bitmap{
+    APPLE_TILE,
+    HEAD,
+    TAIL,
+    COVERED
+};
 #endif /* GUI_H_ */

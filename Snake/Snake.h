@@ -10,5 +10,31 @@
 #define Snake_h
 
 #include <stdio.h>
+//int snake_length;
+
+enum Direction{
+    UP,
+    DOWN,
+    RIGHT,
+    LEFT
+};
+struct Coordinate{
+    int x;
+    int y;
+};
+struct Snake{
+    struct Bodypart* snakebody;
+};
+struct Bodypart{
+    int is_head;
+    struct Coordinate coordinates;
+    enum Direction direction;
+};
+
+void initialize_snake(int grid_width, int grid_height);
+void move_snake();
+
+
+extern int snake_length;
 
 #endif /* Snake_h */

@@ -7,3 +7,12 @@
 //
 
 #include "game.h"
+
+
+
+void game_loop(int width, int height){
+    while (1) {
+        move_snake();
+        read_input(width, height);
+    }
+}

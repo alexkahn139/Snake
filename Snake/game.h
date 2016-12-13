@@ -10,5 +10,9 @@
 #define game_h
 
 #include <stdio.h>
+#include "Snake.h"
+#include "gui.h"
+
+void game_loop(int width, int height);
 
 #endif /* game_h */
