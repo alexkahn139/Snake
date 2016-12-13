@@ -27,24 +27,39 @@ void allocate_snake(int height, int width){
     snake.snakebody[0].is_head = 1;
     }
 
+struct Coordinate get_coordinates(int part){
+    return snake.snakebody[part].coordinates;
+}
 
 void snake_eat(){
     snake_length++;
 }
 
-void move_head(){
+void move_head(int width, int height){
       //the head
     if (snake.snakebody[0].direction == UP){
-        snake.snakebody[0].coordinates.y--;
+        if (snake.snakebody[0].coordinates.y == 0){
+            snake.snakebody[0].coordinates.y = height;
+        }
+        else snake.snakebody[0].coordinates.y--;
     }
     else if (snake.snakebody[0].direction == DOWN){
-        snake.snakebody[0].coordinates.y++;
+        if (snake.snakebody[0].coordinates.y == height){
+            snake.snakebody[0].coordinates.y = 0;
+        }
+        else snake.snakebody[0].coordinates.y++;
     }
     else if (snake.snakebody[0].direction ==  RIGHT){
-        snake.snakebody[0].coordinates.x++;
+        if (snake.snakebody[0].coordinates.x == width){
+            snake.snakebody[0].coordinates.x = 0;
+        }
+        else snake.snakebody[0].coordinates.x++;
     }
     else if (snake.snakebody[0].direction == LEFT){
-        snake.snakebody[0].coordinates.x--;
+        if (snake.snakebody[0].coordinates.x == 0){
+            snake.snakebody[0].coordinates.x = width;
+        }
+        else snake.snakebody[0].coordinates.x--;
     }
 }
 //Idee voor de slang te verlengen, array achterstevoren aflopen en get_bodypart(n)->coordinates.x = get_bodypart(n-1)->coordinates.x
@@ -56,10 +71,17 @@ void move_tail(){
         }
     }//else newlevel
 }
-void move_snake(){
+void move_snake(int width, int height){
     move_tail();
-    move_head();
+    move_head(width, height);
+}
+void change_direction(int direction){
+    snake.snakebody[0].direction = direction;
 }
 void initialize_snake(int grid_width, int grid_height){
     allocate_snake(grid_height, grid_height);
+    struct Coordinate coord = get_coordinates(0);
+    int x = coord.x;
+    printf("%i",x);
 }
+

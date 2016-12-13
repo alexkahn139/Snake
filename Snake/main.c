@@ -22,10 +22,10 @@ int main(int argc, char *argv[]) {
     if (argc == 3){ //3 argumenten + ./main
         int height = atoi(argv[1]);
         int width = atoi(argv[2]);
-        
+        initialize_snake(width, height);
         initialize_grid(height, width);
         initialize_gui(height, width);
-        initialize_snake(width, height);
+        
         
         game_loop(width, height);
         

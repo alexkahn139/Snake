@@ -30,11 +30,11 @@ void draw_cell(int x, int y, int kleur){
 }
 void draw_snake_part(int part){
     SDL_Rect offset;
-    //truct Coordinate coordinates = get_bodypart_coordinates(part);
-    //int x = get_bodypart_coordinate_x(0);
-    //int y = get_bodypart_coordinate_x(0);
-    //offset.x = x*IMAGE_WIDTH;
-    //offset.y = y*IMAGE_HEIGHT;
+    struct Coordinate coordinates = get_coordinates(part);
+    int x = coordinates.x;
+    int y = coordinates.y;
+    offset.x = x*IMAGE_WIDTH;
+    offset.y = y*IMAGE_HEIGHT;
     
     SDL_BlitSurface(images[HEAD], NULL, window, &offset);
 }
@@ -50,11 +50,11 @@ void draw_grid(int width, int height) {
             if ((get_cell(x, y)->state) == APPLE){
             draw_cell(x, y, APPLE_TILE);
             }
-            //else draw_cell(x, y, COVERED);
+            else draw_cell(x, y, COVERED);
         }
     }
     //for (int i = 0; i < snake_length; i++) {
-        //draw_snake_part(0);
+        draw_snake_part(0);
     //}
     SDL_Flip(window);
 }
@@ -84,14 +84,27 @@ void read_input(int width, int height) {
                 // De speler wil het spel afsluiten.
                 exit(1);
             case SDL_KEYDOWN:
-                switch (event.key.keysym.sym) {
-                    case SDLK_p:
+                if (event.key.keysym.sym == SDLK_UP){
                         // De speler heeft op de P toets gedrukt.
+                        change_direction(UP);
+                }
+                else if (event.key.keysym.sym == SDLK_DOWN){
+                        // De speler heeft op de P toets gedrukt.
+                        change_direction(DOWN);
+                }
+                else if (event.key.keysym.sym == SDLK_RIGHT){
+                        // De speler heeft op de P toets gedrukt.
+                        change_direction(RIGHT);
+                }
+                         else if (event.key.keysym.sym == SDLK_LEFT){
+                        // De speler heeft op de P toets gedrukt.
+                        change_direction(LEFT);
+                         }
                     default:
                         // De speler heeft op een andere toets gedrukt.
                         // Deze printf mag je verwijderen.
                         printf("toets ingedrukt\n");
-                }
+                
                 break;
                 
             case SDL_MOUSEBUTTONDOWN:
@@ -109,7 +122,6 @@ void read_input(int width, int height) {
                         // Deze printf mag je verwijderen.
                         printf("muis geklikt\n");
                 }
-                
         }
     }
 }

@@ -90,8 +90,8 @@
 			isa = PBXGroup;
 			children = (
 				AC39F6F71DFDE7E600177E89 /* main.c */,
-				AC39F7081DFDEEFA00177E89 /* Snake.c */,
 				AC842CAA1DFEC6F1006B2C16 /* game.c */,
+				AC39F7081DFDEEFA00177E89 /* Snake.c */,
 				AC842CA41DFEC65C006B2C16 /* gui.c */,
 				AC842CA61DFEC6CD006B2C16 /* grid.c */,
 			);

@@ -12,7 +12,8 @@
 
 void game_loop(int width, int height){
     while (1) {
-        move_snake();
+        move_snake(width, height);
         read_input(width, height);
+        draw_grid(width, height);
     }
 }
