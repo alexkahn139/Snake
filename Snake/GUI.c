@@ -107,21 +107,9 @@ void read_input(int width, int height) {
                 
                 break;
                 
-            case SDL_MOUSEBUTTONDOWN:
-                /*
-                 * De speler heeft met de muis geklikt: met de onderstaande lijn worden de coördinaten in het
-                 * het speelveld waar de speler geklikt heeft bewaard in de variabelen mouse_x en mouse_y.
-                 */
-                SDL_GetMouseState(&mouse_x, &mouse_y);
-                switch (event.button.button) {
-                    case SDL_BUTTON_LEFT:
-                        draw_grid(width, height);
-                        // De gebruiker heeft met de linkermuisknop geklikt.
-                    case SDL_BUTTON_RIGHT:
-                        // De gebruiker heeft met de rechtermuisknop geklikt.
-                        // Deze printf mag je verwijderen.
-                        printf("muis geklikt\n");
-                }
+        
+            
+                
         }
     }
 }
