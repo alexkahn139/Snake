@@ -93,8 +93,39 @@ void move_snake(int width, int height){
 }
 
 void change_direction(int direction){
-    
-    snake.snakebody[0].direction = direction;
+    int snake_direction =snake.snakebody[0].direction;
+    if (snake_direction == UP){
+        if (direction == DOWN){
+            printf("Not an option");
+        }
+        else{
+            snake.snakebody[0].direction = direction;
+        }
+    }
+    if (snake_direction == DOWN){
+        if (direction == UP){
+            printf("Not an option");
+        }
+        else{
+            snake.snakebody[0].direction = direction;
+        }
+    }
+    if (snake_direction == RIGHT){
+        if (direction == LEFT){
+            printf("Not an option");
+        }
+        else{
+            snake.snakebody[0].direction = direction;
+        }
+    }
+    if (snake_direction == LEFT){
+        if (direction == RIGHT){
+            printf("Not an option");
+        }
+        else{
+            snake.snakebody[0].direction = direction;
+        }
+    }
 }
 void initialize_snake(int grid_width, int grid_height){
     allocate_snake(grid_height, grid_height);
