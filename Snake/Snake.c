@@ -34,32 +34,42 @@ struct Coordinate get_coordinates(int part){
 void snake_eat(){
     snake_length++;
 }
-
+void extend_snake(){
+   // snake.snakebody = (struct Bodypart*)realloc(snake.snakebody, (struct Bodypart*)malloc(snake_length * sizeof(struct Bodypart)));
+}
 void move_head(int width, int height){
       //the head
     if (snake.snakebody[0].direction == UP){
         if (snake.snakebody[0].coordinates.y == 0){
-            snake.snakebody[0].coordinates.y = height;
+            snake.snakebody[0].coordinates.y = height - 1;
         }
         else snake.snakebody[0].coordinates.y--;
     }
     else if (snake.snakebody[0].direction == DOWN){
-        if (snake.snakebody[0].coordinates.y == height){
+        if (snake.snakebody[0].coordinates.y == height -1){
             snake.snakebody[0].coordinates.y = 0;
         }
         else snake.snakebody[0].coordinates.y++;
     }
     else if (snake.snakebody[0].direction ==  RIGHT){
-        if (snake.snakebody[0].coordinates.x == width){
+        if (snake.snakebody[0].coordinates.x == width -1){
             snake.snakebody[0].coordinates.x = 0;
         }
         else snake.snakebody[0].coordinates.x++;
     }
     else if (snake.snakebody[0].direction == LEFT){
         if (snake.snakebody[0].coordinates.x == 0){
-            snake.snakebody[0].coordinates.x = width;
+            snake.snakebody[0].coordinates.x = width -1;
         }
         else snake.snakebody[0].coordinates.x--;
+    }
+}
+void check_apple(int width, int height){
+    int x_co = snake.snakebody[0].coordinates.x;
+    int y_co = snake.snakebody[0].coordinates.y;
+    if (get_cell(x_co, y_co)->state == APPLE){
+        snake_eat();
+        eat_apple(x_co, y_co, width,height);
     }
 }
 //Idee voor de slang te verlengen, array achterstevoren aflopen en get_bodypart(n)->coordinates.x = get_bodypart(n-1)->coordinates.x
@@ -74,6 +84,7 @@ void move_tail(){
 void move_snake(int width, int height){
     move_tail();
     move_head(width, height);
+    check_apple(width, height);
 }
 void change_direction(int direction){
     snake.snakebody[0].direction = direction;

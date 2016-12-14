@@ -56,14 +56,21 @@ static struct Coordinate* generate_random_apple(int grid_width, int grid_height)
     coordinates_of_apple[1] = coordinate;
     return coordinates_of_apple;
 }
-
-void initialize_grid(int grid_height, int grid_width){
-    grid = allocate_grid(grid_width, grid_height);
+void make_apple(int grid_height, int grid_width){
     struct Coordinate *apple_coordinates = generate_random_apple(grid_width, grid_height);
     place_apple(apple_coordinates);
     free(apple_coordinates);
+}
+void initialize_grid(int grid_height, int grid_width){
+    grid = allocate_grid(grid_width, grid_height);
+    make_apple(grid_height, grid_width);
     
 }
+void eat_apple(int x, int y, int grid_height, int grid_width){
+    get_cell(x, y)->state = NORMAL;
+    make_apple(grid_height, grid_width);
+}
+
 void deallocate_grid(int grid_width, int grid_height){
     for (int x = 0; x < grid_width; x++) {
         for (int y = 0;y < grid_height; y++) {

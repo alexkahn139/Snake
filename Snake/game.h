@@ -10,6 +10,7 @@
 #define game_h
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "Snake.h"
 #include "gui.h"
 

@@ -33,5 +33,5 @@ void deallocate_grid(int grid_width, int grid_height);
  * Geeft een pointer terug naar de Cell die zich bevindt op positie (x,y) in het veld.
  */
 struct Cell *get_cell(int x, int y);
-
+void eat_apple(int x, int y, int grid_height, int grid_width);
 #endif /* grid_h */

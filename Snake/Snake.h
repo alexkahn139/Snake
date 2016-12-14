@@ -10,6 +10,7 @@
 #define Snake_h
 
 #include <stdio.h>
+#include "grid.h"
 //int snake_length;
 
 enum Direction{
