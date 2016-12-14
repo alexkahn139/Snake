@@ -31,7 +31,7 @@ struct Coordinate get_coordinates(int part){
     return snake.snakebody[part].coordinates;
 }
 void extend_snake(int x, int y){
-    snake.snakebody = realloc(snake.snakebody, (snake_length * sizeof(struct Bodypart)));
+    snake.snakebody = realloc (snake.snakebody, (snake_length * sizeof(struct Bodypart)));
     snake.snakebody[snake_length].coordinates.x=x;
     snake.snakebody[snake_length].coordinates.y=y;
     snake.snakebody[snake_length].is_head = 0;
@@ -91,6 +91,7 @@ void move_snake(int width, int height){
     move_head(width, height);
     
 }
+
 
 void change_direction(int direction){ // Could be done with modulo, but this is way easier to read
     int snake_direction =snake.snakebody[0].direction;
