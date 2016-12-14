@@ -15,8 +15,8 @@
 
 enum Direction{
     UP,
-    DOWN,
     RIGHT,
+    DOWN,
     LEFT
 };
 struct Coordinate{

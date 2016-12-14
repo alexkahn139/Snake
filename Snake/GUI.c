@@ -53,9 +53,9 @@ void draw_grid(int width, int height) {
             else draw_cell(x, y, COVERED);
         }
     }
-    //for (int i = 0; i < snake_length; i++) {
-        draw_snake_part(0);
-    //}
+    for (int i = 0; i <= snake_length; i++) {
+        draw_snake_part(i);
+    }
     SDL_Flip(window);
 }
 

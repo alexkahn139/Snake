@@ -16,7 +16,7 @@ struct Snake snake;
 
 int snake_max_size = 25; //Na een bepaalde lengte wordt er een nieuw level begonnen
 
-int snake_length = 1;
+int snake_length = 0;
  
 
 void allocate_snake(int height, int width){
@@ -30,13 +30,17 @@ void allocate_snake(int height, int width){
 struct Coordinate get_coordinates(int part){
     return snake.snakebody[part].coordinates;
 }
-
-void snake_eat(){
+void extend_snake(int x, int y){
+    snake.snakebody = realloc(snake.snakebody, (snake_length * sizeof(struct Bodypart)));
+    snake.snakebody[snake_length].coordinates.x=x;
+    snake.snakebody[snake_length].coordinates.y=y;
+    snake.snakebody[snake_length].is_head = 0;
+}
+void snake_eat(int x, int y){
     snake_length++;
+    extend_snake(x,y);
 }
-void extend_snake(){
-   // snake.snakebody = (struct Bodypart*)realloc(snake.snakebody, (struct Bodypart*)malloc(snake_length * sizeof(struct Bodypart)));
-}
+
 void move_head(int width, int height){
       //the head
     if (snake.snakebody[0].direction == UP){
@@ -68,7 +72,7 @@ void check_apple(int width, int height){
     int x_co = snake.snakebody[0].coordinates.x;
     int y_co = snake.snakebody[0].coordinates.y;
     if (get_cell(x_co, y_co)->state == APPLE){
-        snake_eat();
+        snake_eat(x_co, y_co);
         eat_apple(x_co, y_co, width,height);
     }
 }
@@ -76,17 +80,20 @@ void check_apple(int width, int height){
 void move_tail(){
     if (snake_length < snake_max_size && snake_length > 0){
         for (int i = snake_length; i > 0 ; i--) {
-            snake.snakebody[i].coordinates.x = snake.snakebody[-1].coordinates.x;
+            snake.snakebody[i].coordinates.x = snake.snakebody[i-1].coordinates.x;
             snake.snakebody[i].coordinates.y = snake.snakebody[i-1].coordinates.y;
         }
     }//else newlevel
 }
 void move_snake(int width, int height){
     move_tail();
-    move_head(width, height);
     check_apple(width, height);
+    move_head(width, height);
+    
 }
+
 void change_direction(int direction){
+    
     snake.snakebody[0].direction = direction;
 }
 void initialize_snake(int grid_width, int grid_height){
