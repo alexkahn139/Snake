@@ -9,10 +9,10 @@
 #include "game.h"
 #include<unistd.h>
 int counter = 0;
-
+bool game_running = true;
 
 void game_loop(int width, int height){
-    while (1) {
+    while (game_running) {
         
         read_input(width, height);
         if (counter > 10000){

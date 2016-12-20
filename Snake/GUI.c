@@ -64,8 +64,7 @@ void read_input(int width, int height) {
     
     SDL_Event event;
     
-    int mouse_x;
-    int mouse_y;
+
     
     /*
      * Handelt alle input uit de GUI af.

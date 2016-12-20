@@ -10,14 +10,15 @@
 #include "Snake.h"
 #include <stdlib.h>
 #include <math.h>
+#include <stdbool.h>
 
 
 struct Snake snake;
 
-int snake_max_size = 25; //Na een bepaalde lengte wordt er een nieuw level begonnen
+int snake_max_size = 300; //Na een bepaalde lengte wordt er een nieuw level begonnen
 
-int snake_length = 0;
- 
+int snake_length = 1;
+
 
 void allocate_snake(int height, int width){
     snake.snakebody = (struct Bodypart*)malloc(snake_length * sizeof(struct Bodypart));
@@ -25,24 +26,27 @@ void allocate_snake(int height, int width){
     snake.snakebody[0].coordinates.x = floor(height/2);
     snake.snakebody[0].coordinates.y =  floor(width/2);
     snake.snakebody[0].is_head = 1;
-    }
+}
 
 struct Coordinate get_coordinates(int part){
     return snake.snakebody[part].coordinates;
 }
 void extend_snake(int x, int y){
     snake.snakebody = realloc (snake.snakebody, (snake_length * sizeof(struct Bodypart)));
+    snake.snakebody[snake_length].direction = RIGHT;
     snake.snakebody[snake_length].coordinates.x=x;
     snake.snakebody[snake_length].coordinates.y=y;
     snake.snakebody[snake_length].is_head = 0;
 }
 void snake_eat(int x, int y){
-    snake_length++;
     extend_snake(x,y);
+    snake_length++;
+    
+    printf("Snake is %i parts long \n",snake_length);
 }
 
 void move_head(int width, int height){
-      //the head
+    //the head
     if (snake.snakebody[0].direction == UP){
         if (snake.snakebody[0].coordinates.y == 0){
             snake.snakebody[0].coordinates.y = height - 1;
@@ -76,6 +80,23 @@ void check_apple(int width, int height){
         eat_apple(x_co, y_co, width,height);
     }
 }
+bool check_bodyparts_loop(int x, int y, int i){
+    if(x == snake.snakebody[i].coordinates.x && y == snake.snakebody[i].coordinates.y){
+        return true;
+    }
+    else if (i == snake_length){
+        return false;
+    }
+    else{
+        return check_bodyparts_loop(x, y, i++);
+        
+    }
+}
+void check_bodyparts_collision(){
+    int x_co = snake.snakebody[0].coordinates.x;
+    int y_co = snake.snakebody[0].coordinates.y;
+    game_running = check_bodyparts_loop(x_co, y_co, 1);    //Start at 1 because the head can't collide with itself
+}
 //Idee voor de slang te verlengen, array achterstevoren aflopen en get_bodypart(n)->coordinates.x = get_bodypart(n-1)->coordinates.x
 void move_tail(){
     if (snake_length < snake_max_size && snake_length > 0){
@@ -86,9 +107,10 @@ void move_tail(){
     }//else newlevel
 }
 void move_snake(int width, int height){
+    move_head(width, height);
     move_tail();
     check_apple(width, height);
-    move_head(width, height);
+    
     
 }
 

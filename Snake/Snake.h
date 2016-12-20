@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "grid.h"
+#include "game.h"
 //int snake_length;
 
 enum Direction{
