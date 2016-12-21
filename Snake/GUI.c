@@ -36,6 +36,16 @@ void draw_snake_part(int part){
     offset.x = x*IMAGE_WIDTH;
     offset.y = y*IMAGE_HEIGHT;
     
+    SDL_BlitSurface(images[TAIL], NULL, window, &offset);
+}
+void draw_snake_head(){
+    SDL_Rect offset;
+    struct Coordinate coordinates = get_coordinates(0);
+    int x = coordinates.x;
+    int y = coordinates.y;
+    offset.x = x*IMAGE_WIDTH;
+    offset.y = y*IMAGE_HEIGHT;
+    
     SDL_BlitSurface(images[HEAD], NULL, window, &offset);
 }
 void draw_grid(int width, int height) {
@@ -53,7 +63,8 @@ void draw_grid(int width, int height) {
             else draw_cell(x, y, COVERED);
         }
     }
-    for (int i = 0; i <= snake_length; i++) {
+    //draw_snake_head();
+    for (int i = 0; i < snake_length; i++) {
         draw_snake_part(i);
     }
     SDL_Flip(window);
@@ -63,7 +74,7 @@ void draw_grid(int width, int height) {
 void read_input(int width, int height) {
     
     SDL_Event event;
-    
+    //printf("Sdl OK \n");
 
     
     /*
@@ -78,6 +89,7 @@ void read_input(int width, int height) {
      * Zie ook https://wiki.libsdl.org/SDL_PollEvent en http://www.parallelrealities.co.uk/2011_09_01_archive.html
      */
     while (SDL_PollEvent(&event)) {
+        //printf("1e regel while \n");
         switch (event.type) {
             case SDL_QUIT:
                 // De speler wil het spel afsluiten.

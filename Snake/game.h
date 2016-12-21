@@ -14,6 +14,7 @@
 #include "Snake.h"
 #include "gui.h"
 #include <stdbool.h>
+ 
 
 void game_loop(int width, int height);
 extern bool game_running;

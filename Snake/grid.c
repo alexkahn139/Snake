@@ -57,7 +57,7 @@ static struct Coordinate* generate_random_apple(int grid_width, int grid_height)
     return coordinates_of_apple;
 }
 void make_apple(int grid_height, int grid_width){
-    struct Coordinate *apple_coordinates = generate_random_apple(grid_width, grid_height);
+    struct Coordinate *apple_coordinates = generate_random_apple(grid_width-1, grid_height-1);
     place_apple(apple_coordinates);
     free(apple_coordinates);
 }
