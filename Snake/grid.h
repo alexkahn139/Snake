@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Snake.h"
+#include <math.h>
 
 void initialize_grid(int height, int width);
 

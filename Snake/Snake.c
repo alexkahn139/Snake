@@ -90,6 +90,13 @@ void check_apple(int width, int height, int x, int y){
         eat_apple(x, y, width,height);
     }
 }
+void check_wall(){
+    int x = snake.snakebody[0].coordinates.x;
+    int y = snake.snakebody[0].coordinates.y;
+    if (get_cell(x, y)->state ==WALL){
+        game_running = false;
+    }
+}
 bool check_bodyparts_loop(int x, int y, int i){
     if(x == snake.snakebody[i].coordinates.x && y == snake.snakebody[i].coordinates.y){
         printf("1 \n");
@@ -126,9 +133,9 @@ void move_snake(int width, int height){
     int old_y =snake.snakebody[0].coordinates.y;
     move_head(width, height);
     check_apple(width, height, old_x, old_y);
-    
+   
     check_bodyparts_collision();
-    
+     check_wall();
    
     
     

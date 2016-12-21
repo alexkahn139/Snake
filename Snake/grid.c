@@ -13,7 +13,7 @@
 static struct Cell*** grid;
 
 int loops = 0;
-
+int nr_of_walls = 0;
 struct Cell *get_cell(int x, int y) {
     return grid[x][y];
 }
@@ -25,13 +25,19 @@ struct Coordinate {
 void place_apple(struct Coordinate apple_coordinates[]){
     get_cell(apple_coordinates[1].x, apple_coordinates[1].y)->state = APPLE;
 }
+void place_walls(struct Coordinate wall_coordinates[], int nr_of_walls){
+    printf("nr_of_walls = %i \n", nr_of_walls);
+    for (int i = 0; i < nr_of_walls ; i++) {
+         get_cell(wall_coordinates[i].x, wall_coordinates[i].y)->state = WALL;
+    }
+}
 
 struct Cell *** allocate_grid(int grid_width, int grid_height){
     struct Cell *** grid = malloc(grid_height * sizeof(struct Cell **));
-    for (int y = 0;y < grid_height; y++) {
+    for (int y = 0 ;y < grid_height; y++) {
         struct Cell ** row = malloc(grid_width * sizeof(struct Cell *));
         for (int x = 0; x < grid_width; x++) {
-            struct Cell * cell_in_grid = (struct Cell *)malloc(sizeof(struct Cell *));
+            struct Cell * cell_in_grid = malloc(sizeof(struct Cell *));
             row[x] = cell_in_grid;
         }
         grid[y] = row;
@@ -44,9 +50,6 @@ struct Cell *** allocate_grid(int grid_width, int grid_height){
  */
 //http://stackoverflow.com/questions/196017/unique-non-repeating-random-numbers-in-o1
 
-/*
- * Genereert nr_of_mines aantal random, verschillende posities voor de mijnen die initieel in het veld geplaatst worden.
- */
 static struct Coordinate* generate_random_apple(int grid_width, int grid_height) {
     int x = rand() %grid_width;
     int y = rand() %grid_height;
@@ -56,6 +59,30 @@ static struct Coordinate* generate_random_apple(int grid_width, int grid_height)
     coordinates_of_apple[1] = coordinate;
     return coordinates_of_apple;
 }
+static struct Coordinate* generate_walls(int grid_width, int grid_height){
+    nr_of_walls = (floor(grid_width/5)*4 + floor(grid_width/5)*4 - 4);
+    struct Coordinate *coordinates_of_walls = malloc(nr_of_walls * sizeof(struct Coordinate));
+    int i = 0;
+    while(i < nr_of_walls) {
+        for (int x = 0; x < grid_width; x++){
+            for (int y = 0; y < grid_height; y++){
+                if (((x < 5 || x > 14) && ( y == 0 || y == grid_height - 1)) || (((y < 5 || y > 14))&&( x == 0 || x == grid_width -1 ))){
+                        printf("%i \n", i);
+                        i++;
+                        struct Coordinate coordinate = {x, y};
+                        coordinates_of_walls[i] = coordinate;
+                    
+                }
+            }
+        }
+    }
+    return coordinates_of_walls;
+}
+void make_walls(int grid_height, int grid_width){
+    struct Coordinate *wall_coordinates = generate_walls(grid_height, grid_height);
+    place_walls(wall_coordinates, nr_of_walls);
+    free(wall_coordinates);
+}
 void make_apple(int grid_height, int grid_width){
     struct Coordinate *apple_coordinates = generate_random_apple(grid_width-1, grid_height-1);
     place_apple(apple_coordinates);
@@ -63,7 +90,9 @@ void make_apple(int grid_height, int grid_width){
 }
 void initialize_grid(int grid_height, int grid_width){
     grid = allocate_grid(grid_width, grid_height);
+    make_walls(grid_height, grid_width);
     make_apple(grid_height, grid_width);
+    
     
 }
 void eat_apple(int x, int y, int grid_height, int grid_width){

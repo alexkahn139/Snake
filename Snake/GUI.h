@@ -10,8 +10,8 @@
  * Als je andere afbeelding wil gebruiken in je GUI, zorg er dan voor dat deze
  * dimensies ook aangepast worden.
  */
-#define IMAGE_HEIGHT 50
-#define IMAGE_WIDTH 50
+#define IMAGE_HEIGHT 10
+#define IMAGE_WIDTH 10
 
 /*
  * Initialiseert onder andere het venster waarin het speelveld getoond zal worden.

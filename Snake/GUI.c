@@ -57,7 +57,10 @@ void draw_grid(int width, int height) {
      */
     for (int y = 0; y < height; y++){
         for (int x = 0; x < width; x++){
-            if ((get_cell(x, y)->state) == APPLE){
+            if ((get_cell(x, y)->state) == WALL){
+                draw_cell(x, y, HEAD);
+            }
+            else if ((get_cell(x, y)->state) == APPLE){
             draw_cell(x, y, APPLE_TILE);
             }
             else draw_cell(x, y, COVERED);
