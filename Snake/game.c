@@ -18,6 +18,7 @@ void game_loop(int width, int height){
         draw_grid(width, height);
         SDL_Delay(100);
     }
+    save_to_file();
 }
 
 

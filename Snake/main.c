@@ -13,7 +13,10 @@
 #include "gui.h"
 #include "Snake.h"
 #include "game.h"
+#include "input_output.h"
 
+extern int width;
+extern int height;
 
 int main(int argc, char *argv[]) {
     srand((unsigned int)time(NULL));
@@ -22,6 +25,8 @@ int main(int argc, char *argv[]) {
     if (argc == 3){ //3 argumenten + ./main
         int height = atoi(argv[1]);
         int width = atoi(argv[2]);
+        open_file();
+        
         initialize_snake(width, height);
         initialize_grid(height, width);
         initialize_gui(height, width);

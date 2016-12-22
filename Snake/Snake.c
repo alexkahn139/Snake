@@ -19,7 +19,7 @@ int snake_max_size = 300; //Na een bepaalde lengte wordt er een nieuw level bego
 
 int snake_length = 1;
 int array_length = 100;
-
+int score = 0;
 
 void allocate_snake(int height, int width){
     snake.snakebody = (struct Bodypart*)malloc(array_length * sizeof(struct Bodypart));
@@ -88,6 +88,7 @@ void check_apple(int width, int height, int x, int y){
     if (get_cell(x, y)->state == APPLE){
         snake_eat(x, y);
         eat_apple(x, y, width,height);
+        score = score + 10;
     }
 }
 void check_wall(){
@@ -99,17 +100,14 @@ void check_wall(){
 }
 bool check_bodyparts_loop(int x, int y, int i){
     if(x == snake.snakebody[i].coordinates.x && y == snake.snakebody[i].coordinates.y){
-        printf("1 \n");
         return false;
     }
     else if (i < snake_length){
-        printf("2, %i \n", i);
         i++;
         return check_bodyparts_loop(x, y, i);
     }
     else{
         return true;
-        
     }
 }
 
@@ -135,7 +133,8 @@ void move_snake(int width, int height){
     check_apple(width, height, old_x, old_y);
    
     check_bodyparts_collision();
-     check_wall();
+    check_wall();
+    update_highscore(score);
    
     
     

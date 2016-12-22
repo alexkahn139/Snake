@@ -11,4 +11,11 @@
 
 #include <stdio.h>
 
+void open_file();
+void close_file();
+void save_to_file();
+void update_highscore(int score);
+
+
+
 #endif /* input_output_h */
