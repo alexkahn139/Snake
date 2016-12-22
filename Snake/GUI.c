@@ -129,10 +129,6 @@ void read_input(int width, int height) {
                 printf("toets ingedrukt\n");
                 
                 break;
-                
-                
-                
-                
         }
     }
 }

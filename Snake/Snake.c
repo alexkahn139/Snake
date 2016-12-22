@@ -23,12 +23,11 @@ int score = 0;
 
 void allocate_snake(int height, int width){
     snake.snakebody = (struct Bodypart*)malloc(array_length * sizeof(struct Bodypart));
-    snake.snakebody = (struct Bodypart*)malloc(snake_length * sizeof(struct Bodypart));
+    //snake.snakebody = (struct Bodypart*)malloc(snake_length * sizeof(struct Bodypart));
     snake.snakebody[0].direction = RIGHT;
     snake.snakebody[0].coordinates.x = floor(height/2);
     snake.snakebody[0].coordinates.y =  floor(width/2);
-    snake.snakebody[0].is_head = 1;
-    
+    //snake.snakebody[0].is_head = 1;
 }
 
 struct Coordinate get_coordinates(int part){
@@ -45,7 +44,7 @@ void extend_snake(int x, int y){
     snake.snakebody[snake_length].coordinates.y = y;
     
     
-    snake.snakebody[snake_length].is_head = 0;
+    //snake.snakebody[snake_length].is_head = 0;
     printf("realloc worked \n");
 }
 void snake_eat(int x, int y){
@@ -179,9 +178,7 @@ void change_direction(int direction){ // Could be done with modulo, but this is 
 }
 void initialize_snake(int grid_width, int grid_height){
     allocate_snake(grid_height, grid_height);
-    struct Coordinate coord = get_coordinates(0);
-    int x = coord.x;
-    printf("%i",x);
+    
 }
 struct Snake get_snake(){
     return snake;

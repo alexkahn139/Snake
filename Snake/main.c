@@ -20,8 +20,6 @@ extern int height;
 
 int main(int argc, char *argv[]) {
     srand((unsigned int)time(NULL));
-    
-
     if (argc == 3){ //3 argumenten + ./main
         int height = atoi(argv[1]);
         int width = atoi(argv[2]);
@@ -31,6 +29,7 @@ int main(int argc, char *argv[]) {
         initialize_grid(height, width);
         initialize_gui(height, width);
         
+        load_walls(height, width);
         
         game_loop(width, height);
         

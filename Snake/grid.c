@@ -50,7 +50,7 @@ static struct Coordinate* generate_random_apple(int grid_width, int grid_height)
     return coordinates_of_apple;
 }
 static struct Coordinate* generate_walls(int grid_width, int grid_height){
-    nr_of_walls = (floor(grid_width/5)*4 + floor(grid_width/5)*4 - 4);
+    nr_of_walls = (floor(grid_width/5)*4 + floor(grid_width/5)*4 - 2);
     struct Coordinate *coordinates_of_walls = malloc(nr_of_walls * sizeof(struct Coordinate));
     int i = 0;
     while(i < nr_of_walls + 1) {

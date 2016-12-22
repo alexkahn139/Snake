@@ -28,7 +28,6 @@ struct Snake{
     struct Bodypart* snakebody;
 };
 struct Bodypart{
-    int is_head;
     struct Coordinate coordinates;
     enum Direction direction;
 };

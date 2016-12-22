@@ -19,6 +19,6 @@ void close_file();
 void save_to_file();
 void update_highscore(int score);
 void save_game_state(int grid_height, int grid_width);
-
-
+void load_game_state(int grid_height, int grid_width);
+void load_walls(int grid_height, int grid_width);
 #endif /* input_output_h */
