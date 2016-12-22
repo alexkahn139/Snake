@@ -49,3 +49,43 @@ void update_highscore(int score){
         highscore = score;
     }
 }
+void save_game_state(int grid_height, int grid_width){
+    fp=fopen("game_state.txt", "w+");
+    fprintf(fp, "%i", grid_height);
+    fputs(" ", (FILE*)fp);
+    fprintf(fp, "%i", grid_width);
+    fputs(" ", (FILE*)fp);
+    fprintf(fp, "%i", nr_of_walls);
+    for (int y = 0; y< grid_height; y++) {      // De coordinaten van de muren opslaan
+        for (int x = 0; x < grid_width; x++){
+            if (get_cell(x, y)->state == WALL){
+                fputs(" ", (FILE*)fp);
+                fprintf(fp, "%i", x);
+                fputs(" ", (FILE*)fp);
+                fprintf(fp, "%i", y);
+            }
+        }
+    }
+    fputs(" ", (FILE*)fp);                      // De coordinaten van de slang opslaan
+    fprintf(fp, "%i",snake_length);
+    struct Snake snake = get_snake();
+    fputs(" ", (FILE*)fp);
+    fprintf(fp, "%i", snake.snakebody[0].direction);
+    for (int i = 0; i < snake_length; i++){
+        fputs(" ", (FILE*)fp);
+        fprintf( fp,"%i",snake.snakebody[i].coordinates.x);
+        fputs(" ", (FILE*)fp);
+        fprintf( fp,"%i",snake.snakebody[i].coordinates.y);
+    }
+    for (int y = 0; y< grid_height; y++) {      // De coordinaten van de appel(s) opslaan
+        for (int x = 0; x < grid_width; x++){
+            if (get_cell(x, y)->state == APPLE){
+                fputs(" ", (FILE*)fp);
+                fprintf(fp, "%i", x);
+                fputs(" ", (FILE*)fp);
+                fprintf(fp, "%i", y);
+            }
+        }
+    }
+    close_file();
+}

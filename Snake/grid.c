@@ -17,20 +17,10 @@ int nr_of_walls = 0;
 struct Cell *get_cell(int x, int y) {
     return grid[x][y];
 }
-/*
-struct Coordinate {
-    int x, y;
-};*/
 
-void place_apple(struct Coordinate apple_coordinates[]){
-    get_cell(apple_coordinates[1].x, apple_coordinates[1].y)->state = APPLE;
-}
-void place_walls(struct Coordinate wall_coordinates[], int nr_of_walls){
-    printf("nr_of_walls = %i \n", nr_of_walls);
-    for (int i = 0; i < nr_of_walls ; i++) {
-         get_cell(wall_coordinates[i].x, wall_coordinates[i].y)->state = WALL;
-    }
-}
+
+
+
 
 struct Cell *** allocate_grid(int grid_width, int grid_height){
     struct Cell *** grid = malloc(grid_height * sizeof(struct Cell **));
@@ -63,21 +53,37 @@ static struct Coordinate* generate_walls(int grid_width, int grid_height){
     nr_of_walls = (floor(grid_width/5)*4 + floor(grid_width/5)*4 - 4);
     struct Coordinate *coordinates_of_walls = malloc(nr_of_walls * sizeof(struct Coordinate));
     int i = 0;
-    while(i < nr_of_walls) {
-        for (int x = 0; x < grid_width; x++){
+    while(i < nr_of_walls + 1) {
             for (int y = 0; y < grid_height; y++){
-                if (((x < 5 || x > 14) && ( y == 0 || y == grid_height - 1)) || (((y < 5 || y > 14))&&( x == 0 || x == grid_width -1 ))){
-                        printf("%i \n", i);
-                        i++;
-                        struct Coordinate coordinate = {x, y};
-                        coordinates_of_walls[i] = coordinate;
-                    
+                for (int x = 0; x < grid_width; x++){
+                if (((x < 5 || x > 14) && ( y == 0 || y == grid_height-1)) || (((y < 5 || y > 14))&&( x == 0 || x == grid_width-1))){
+                    i++;
+                    struct Coordinate coordinate = {x, y};
+                    coordinates_of_walls[i] = coordinate;
                 }
             }
         }
     }
     return coordinates_of_walls;
 }
+void place_apple(struct Coordinate apple_coordinates[], int grid_width, int grid_height){
+    if (get_cell(apple_coordinates[1].x, apple_coordinates[1].y)->state == WALL){
+        struct Coordinate *apple_coordinates = generate_random_apple(grid_width-1, grid_height-1);
+        place_apple(apple_coordinates, grid_width, grid_height);
+        free(apple_coordinates);
+    }
+    else{
+        get_cell(apple_coordinates[1].x, apple_coordinates[1].y)->state = APPLE;
+        
+    }
+}
+void place_walls(struct Coordinate wall_coordinates[], int nr_of_walls){
+    printf("nr_of_walls = %i \n", nr_of_walls);
+    for (int i = 0; i < nr_of_walls ; i++) {
+        get_cell(wall_coordinates[i].x, wall_coordinates[i].y)->state = WALL;
+    }
+}
+
 void make_walls(int grid_height, int grid_width){
     struct Coordinate *wall_coordinates = generate_walls(grid_height, grid_height);
     place_walls(wall_coordinates, nr_of_walls);
@@ -85,7 +91,7 @@ void make_walls(int grid_height, int grid_width){
 }
 void make_apple(int grid_height, int grid_width){
     struct Coordinate *apple_coordinates = generate_random_apple(grid_width-1, grid_height-1);
-    place_apple(apple_coordinates);
+    place_apple(apple_coordinates, grid_width, grid_height);
     free(apple_coordinates);
 }
 void initialize_grid(int grid_height, int grid_width){
@@ -95,6 +101,7 @@ void initialize_grid(int grid_height, int grid_width){
     
     
 }
+
 void eat_apple(int x, int y, int grid_height, int grid_width){
     get_cell(x, y)->state = NORMAL;
     make_apple(grid_height, grid_width);

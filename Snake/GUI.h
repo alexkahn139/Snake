@@ -2,8 +2,13 @@
 #define GUI_H_
 
 #include "SDL/SDL.h"
+//#include "SDL_ttf.h"
+//#include "SDL_ttf/SDL_ttf.h"
+
 #include "grid.h"
 #include "Snake.h"
+#include "input_output.h"
+
 
 /*
  * De hoogte en breedte (in pixels) van de afbeeldingen die getoond worden.

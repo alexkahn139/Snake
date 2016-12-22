@@ -183,4 +183,6 @@ void initialize_snake(int grid_width, int grid_height){
     int x = coord.x;
     printf("%i",x);
 }
-
+struct Snake get_snake(){
+    return snake;
+}

@@ -44,6 +44,7 @@ struct Coordinate get_coordinates(int part);
 
 void change_direction(int direction);
 
+struct Snake get_snake();
 
 
 #endif /* Snake_h */

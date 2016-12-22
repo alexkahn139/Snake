@@ -10,12 +10,15 @@
 #define input_output_h
 
 #include <stdio.h>
+#include "grid.h"
+
+
 
 void open_file();
 void close_file();
 void save_to_file();
 void update_highscore(int score);
-
+void save_game_state(int grid_height, int grid_width);
 
 
 #endif /* input_output_h */

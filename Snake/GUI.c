@@ -14,10 +14,15 @@
  * wanneer het spel eindigt.
  */
 static SDL_Surface *window;
+
+
+
 void stop_gui() {
     SDL_Quit();
 }
-
+void TTF_Init(){
+    
+}
 SDL_Surface* images[4];
 
 void draw_cell(int x, int y, int kleur){
@@ -96,6 +101,7 @@ void read_input(int width, int height) {
         switch (event.type) {
             case SDL_QUIT:
                 // De speler wil het spel afsluiten.
+                save_game_state(height, width);
                 exit(1);
             case SDL_KEYDOWN:
                 if (event.key.keysym.sym == SDLK_UP){
