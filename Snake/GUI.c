@@ -29,7 +29,7 @@ void draw_cell(int x, int y, int kleur){
     SDL_Rect offset;
     offset.x = x*IMAGE_WIDTH;
     offset.y = y*IMAGE_HEIGHT;
-   
+    
     SDL_BlitSurface(images[kleur], NULL, window, &offset);
     
 }
@@ -66,7 +66,7 @@ void draw_grid(int width, int height) {
                 draw_cell(x, y, HEAD);
             }
             else if ((get_cell(x, y)->state) == APPLE){
-            draw_cell(x, y, APPLE_TILE);
+                draw_cell(x, y, APPLE_TILE);
             }
             else draw_cell(x, y, COVERED);
         }
@@ -83,7 +83,7 @@ void read_input(int width, int height) {
     
     SDL_Event event;
     //printf("Sdl OK \n");
-
+    
     
     /*
      * Handelt alle input uit de GUI af.
@@ -105,30 +105,33 @@ void read_input(int width, int height) {
                 exit(1);
             case SDL_KEYDOWN:
                 if (event.key.keysym.sym == SDLK_UP){
-                        // De speler heeft op de P toets gedrukt.
-                        change_direction(UP);
+                    // De speler heeft op de P toets gedrukt.
+                    change_direction(UP);
                 }
                 else if (event.key.keysym.sym == SDLK_DOWN){
-                        // De speler heeft op de P toets gedrukt.
-                        change_direction(DOWN);
+                    // De speler heeft op de P toets gedrukt.
+                    change_direction(DOWN);
                 }
                 else if (event.key.keysym.sym == SDLK_RIGHT){
-                        // De speler heeft op de P toets gedrukt.
-                        change_direction(RIGHT);
+                    // De speler heeft op de P toets gedrukt.
+                    change_direction(RIGHT);
                 }
-                         else if (event.key.keysym.sym == SDLK_LEFT){
-                        // De speler heeft op de P toets gedrukt.
-                        change_direction(LEFT);
-                         }
-                    default:
-                        // De speler heeft op een andere toets gedrukt.
-                        // Deze printf mag je verwijderen.
-                        printf("toets ingedrukt\n");
+                else if (event.key.keysym.sym == SDLK_LEFT){
+                    // De speler heeft op de P toets gedrukt.
+                    change_direction(LEFT);
+                }
+                else if (event.key.keysym.sym == SDLK_p){
+                    pause_game();
+                }
+            default:
+                // De speler heeft op een andere toets gedrukt.
+                // Deze printf mag je verwijderen.
+                printf("toets ingedrukt\n");
                 
                 break;
                 
-        
-            
+                
+                
                 
         }
     }
