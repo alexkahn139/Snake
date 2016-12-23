@@ -101,7 +101,7 @@ void read_input(int width, int height) {
         switch (event.type) {
             case SDL_QUIT:
                 // De speler wil het spel afsluiten.
-                save_game_state(height, width);
+                save_snake_state(height, width);
                 save_apples_state(height, width);
                 exit(1);
             case SDL_KEYDOWN:

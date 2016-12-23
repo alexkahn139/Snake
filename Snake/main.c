@@ -25,12 +25,14 @@ int main(int argc, char *argv[]) {
         int width = atoi(argv[2]);
         open_file();
         
-        initialize_snake(width, height);
+        //initialize_snake(width, height);
         initialize_grid(height, width);
-        initialize_gui(height, width);
+        
         
         load_walls(height, width);
         load_apple(height, width);
+        load_snake_state(height, width);
+        initialize_gui(height, width);
         game_loop(width, height);
         
         //while (1) { read_input(width, height); }

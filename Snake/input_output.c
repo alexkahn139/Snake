@@ -49,26 +49,8 @@ void update_highscore(int score){
         highscore = score;
     }
 }
-void save_game_state(int grid_height, int grid_width){
-    fp=fopen("game_state.txt", "w+");
-    /*
-    fprintf(fp, "%i", grid_height);
-    fputs("  ", (FILE*)fp);
-    fprintf(fp, "%i", grid_width);
-    fputs("  ", (FILE*)fp);
-    
-    fprintf(fp, "%i", nr_of_walls);
-    for (int y = 0; y < grid_height; y++) {      // De coordinaten van de muren opslaan
-        for (int x = 0; x < grid_width; x++){
-            if (get_cell(x, y)->state == WALL){
-                fputs(" ", (FILE*)fp);
-                fprintf(fp, "%i", x);
-                fputs(" ", (FILE*)fp);
-                fprintf(fp, "%i", y);
-            }
-        }
-    }*/
-    // De coordinaten van de slang opslaan
+void save_snake_state(int grid_height, int grid_width){
+    fp=fopen("snake.txt", "w+");
     fprintf(fp, "%i",snake_length);
     struct Snake snake = get_snake();
     fputs(" ", (FILE*)fp);
@@ -78,7 +60,8 @@ void save_game_state(int grid_height, int grid_width){
         fprintf( fp,"%i",snake.snakebody[i].coordinates.x);
         fputs(" ", (FILE*)fp);
         fprintf( fp,"%i",snake.snakebody[i].coordinates.y);
-    }}
+    }
+}
 
 
 void save_apples_state(int grid_height, int grid_width){
@@ -95,9 +78,11 @@ void save_apples_state(int grid_height, int grid_width){
     close_file();
 }
 
-void load_game_state(int grid_height, int grid_width){
-
-        /*
+void load_snake_state(int grid_height, int grid_width){
+    allocate_snake(grid_height, grid_width);
+    if (fp == fopen ("snake.txt","r")){
+        fp=fopen("snake.txt", "r+");
+        
         struct Snake snake = get_snake();
         fscanf(fp, "%s",buff);
         snake_length = atoi(buff);
@@ -110,16 +95,13 @@ void load_game_state(int grid_height, int grid_width){
             snake.snakebody[i].coordinates.y = atoi(buff);
             snake.snakebody[i].direction = direction;
         }
-        fscanf(fp, "%s", buff);
-        int x = atoi(buff);
-        fscanf(fp, "%s",buff
-        int y = atoi(buff);
-        get_cell(x, y)->state=APPLE;
+ 
         fclose(fp);
-        remove("game_state.txt");
-               */
-
-     
+        remove("snake.txt");
+    }
+    else{
+        initialize_snake(grid_height, grid_width);
+    }
 }
 void load_apple(int grid_height, int grid_width){
     if (fp == fopen ("apples.txt","r")){

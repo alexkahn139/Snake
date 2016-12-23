@@ -31,7 +31,7 @@ struct Bodypart{
     struct Coordinate coordinates;
     enum Direction direction;
 };
-
+void allocate_snake(int height, int width);
 void initialize_snake(int grid_width, int grid_height);
 void move_snake(int width, int height);
 

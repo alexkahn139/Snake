@@ -23,7 +23,10 @@ int score = 0;
 
 void allocate_snake(int height, int width){
     snake.snakebody = (struct Bodypart*)malloc(array_length * sizeof(struct Bodypart));
+}
     //snake.snakebody = (struct Bodypart*)malloc(snake_length * sizeof(struct Bodypart));
+void init_snake(int height, int width){
+    //struct Snake snake = get_snake();
     snake.snakebody[0].direction = RIGHT;
     snake.snakebody[0].coordinates.x = floor(height/2);
     snake.snakebody[0].coordinates.y =  floor(width/2);
@@ -178,6 +181,7 @@ void change_direction(int direction){ // Could be done with modulo, but this is 
 }
 void initialize_snake(int grid_width, int grid_height){
     allocate_snake(grid_height, grid_height);
+    init_snake(grid_height, grid_height);
     
 }
 struct Snake get_snake(){
