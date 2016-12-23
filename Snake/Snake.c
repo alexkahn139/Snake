@@ -20,6 +20,9 @@ int snake_max_size = 300; //Na een bepaalde lengte wordt er een nieuw level bego
 int snake_length = 1;
 int array_length = 100;
 int score = 0;
+int get_score(){
+    return score;
+}
 
 void allocate_snake(int height, int width){
     snake.snakebody = (struct Bodypart*)malloc(array_length * sizeof(struct Bodypart));

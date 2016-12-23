@@ -17,7 +17,7 @@ static SDL_Surface *window;
 SDL_Surface* textSurface = NULL;
 //SDL_Rect textLocation = { 100, 100, 0, 0 };
 
-//TTF_Font* font = NULL;
+TTF_Font* font = NULL;
 
 SDL_Color textColor = { 255, 255, 255 };
 
@@ -27,10 +27,10 @@ void drawText(SDL_Surface* screen,
               int size,
               int x, int y)
 {
-    TTF_Font* font = TTF_OpenFont("arial.ttf", size);
+    font = TTF_OpenFont("Images/arial.ttf", size);
     
-    SDL_Color foregroundColor = { 255, 255, 255 };
-    SDL_Color backgroundColor = { 255, 255, 255 };
+    SDL_Color foregroundColor = { 0, 0, 0 };
+    //SDL_Color backgroundColor = { 255, 255, 255 };
     
     textSurface = TTF_RenderText_Solid(font, string, foregroundColor);
     
@@ -101,7 +101,11 @@ void draw_grid(int width, int height) {
     for (int i = 0; i < snake_length; i++) {
         draw_snake_part(i);
     }
-    //drawText(window, "test", 20, 10, 10);
+    int score = get_score();
+    char score_str[10];
+    sprintf(score_str, "%d", score);
+    
+    drawText(window, score_str, 20, 10, 10);
     SDL_Flip(window);
 }
 

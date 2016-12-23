@@ -45,5 +45,6 @@ void change_direction(int direction);
 
 struct Snake get_snake();
 
+int get_score();
 
 #endif /* Snake_h */
