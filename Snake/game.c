@@ -14,7 +14,7 @@ bool not_paused = true;
 
 void game_loop(int width, int height){
     while (game_running) {
-        read_input(width, height);
+        read_input(width, height, game_running);
         if (not_paused){
             move_snake(width, height);
             SDL_Delay(100);
@@ -22,6 +22,10 @@ void game_loop(int width, int height){
         draw_grid(width, height);
     }
     save_to_file();
+    while(1){
+        read_input(width, height, game_running);
+        draw_game_over(width, height);
+    }
 }
 void pause_game(){
     if (not_paused){

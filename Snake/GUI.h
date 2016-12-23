@@ -5,7 +5,7 @@
 //#include "SDL_ttf.h"
 //#include "SDL_ttf/SDL_ttf.h"
 #include "SDL_ttf.h"
-
+#include <stdbool.h>
 #include "grid.h"
 #include "Snake.h"
 #include "input_output.h"
@@ -27,11 +27,12 @@
  * De functie neemt als argumenten ook de breedte en de hoogte van het speelveld.
  */
 void initialize_gui(int grid_width, int grid_height);
-void read_input(int width, int height);
+void read_input(int width, int height, bool game_running);
 /*
  * Tekent het huidige veld in het venster. Deze functie moeten jullie dus zelf implementeren.
  */
 void draw_grid(int width, int height);
+void draw_game_over(int width, int height);
 enum Type_bitmap{
     APPLE_TILE,
     HEAD,

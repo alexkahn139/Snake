@@ -15,6 +15,9 @@ char buff[255];
 int played_games = 0;
 
 int highscore = 0;
+int get_highscore(){
+    return highscore;
+}
 void open_file(){
     if ((fp = fopen ("games.txt","r"))){
         fp=fopen("games.txt", "r+"); //Als de file bestaat gewoon inlezen
@@ -95,7 +98,6 @@ void load_snake_state(int grid_height, int grid_width){
             snake.snakebody[i].coordinates.y = atoi(buff);
             snake.snakebody[i].direction = direction;
         }
- 
         fclose(fp);
         remove("snake.txt");
     }

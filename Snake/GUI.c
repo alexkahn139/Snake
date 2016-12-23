@@ -105,12 +105,25 @@ void draw_grid(int width, int height) {
     char score_str[10];
     sprintf(score_str, "%d", score);
     
-    drawText(window, score_str, 20, 10, 10);
+    drawText(window, score_str, 20, 0, 0);
     SDL_Flip(window);
+}
+void draw_game_over(int width, int height){
+    SDL_FillRect(window, NULL,SDL_MapRGB(window->format, 255, 255, 255));
+    int score = get_score();
+    char score_str[20];
+    char highscore_str[20];
+    int highscore = get_highscore();
+    sprintf(score_str, "Score: %d", score);
+    sprintf(highscore_str, "Highscore: %d", highscore);
+    drawText(window, score_str, 20, (width/2), height/2);
+    drawText(window, highscore_str, 20, (width/2), (height+100)/2);
+    SDL_Flip(window);
+    
 }
 
 
-void read_input(int width, int height) {
+void read_input(int width, int height, bool game_running) {
     
     SDL_Event event;
     //printf("Sdl OK \n");
@@ -127,40 +140,54 @@ void read_input(int width, int height) {
      *
      * Zie ook https://wiki.libsdl.org/SDL_PollEvent en http://www.parallelrealities.co.uk/2011_09_01_archive.html
      */
-    while (SDL_PollEvent(&event)) {
-        //printf("1e regel while \n");
-        switch (event.type) {
-            case SDL_QUIT:
-                // De speler wil het spel afsluiten.
-                save_snake_state(height, width);
-                save_apples_state(height, width);
-                exit(1);
-            case SDL_KEYDOWN:
-                if (event.key.keysym.sym == SDLK_UP){
-                    // De speler heeft op de P toets gedrukt.
-                    change_direction(UP);
-                }
-                else if (event.key.keysym.sym == SDLK_DOWN){
-                    // De speler heeft op de P toets gedrukt.
-                    change_direction(DOWN);
-                }
-                else if (event.key.keysym.sym == SDLK_RIGHT){
-                    // De speler heeft op de P toets gedrukt.
-                    change_direction(RIGHT);
-                }
-                else if (event.key.keysym.sym == SDLK_LEFT){
-                    // De speler heeft op de P toets gedrukt.
-                    change_direction(LEFT);
-                }
-                else if (event.key.keysym.sym == SDLK_p){
-                    pause_game();
-                }
-            default:
-                // De speler heeft op een andere toets gedrukt.
-                // Deze printf mag je verwijderen.
-                printf("toets ingedrukt\n");
-                
-                break;
+    if (game_running){
+        while (SDL_PollEvent(&event)) {
+            //printf("1e regel while \n");
+            switch (event.type) {
+                case SDL_QUIT:
+                    // De speler wil het spel afsluiten.
+                    save_snake_state(height, width);
+                    save_apples_state(height, width);
+                    exit(1);
+                case SDL_KEYDOWN:
+                    if (event.key.keysym.sym == SDLK_UP){
+                        // De speler heeft op de P toets gedrukt.
+                        change_direction(UP);
+                    }
+                    else if (event.key.keysym.sym == SDLK_DOWN){
+                        // De speler heeft op de P toets gedrukt.
+                        change_direction(DOWN);
+                    }
+                    else if (event.key.keysym.sym == SDLK_RIGHT){
+                        // De speler heeft op de P toets gedrukt.
+                        change_direction(RIGHT);
+                    }
+                    else if (event.key.keysym.sym == SDLK_LEFT){
+                        // De speler heeft op de P toets gedrukt.
+                        change_direction(LEFT);
+                    }
+                    else if (event.key.keysym.sym == SDLK_p){
+                        pause_game();
+                    }
+                default:
+                    // De speler heeft op een andere toets gedrukt.
+                    // Deze printf mag je verwijderen.
+                    printf("toets ingedrukt\n");
+                    
+                    break;
+            }
+        }
+    }
+    else{
+        while (SDL_PollEvent(&event)) {
+            //printf("1e regel while \n");
+            switch (event.type) {
+                case SDL_QUIT:
+                    exit(1);
+                default:
+                    printf("toets ingedrukt\n");
+                    break;
+            }
         }
     }
 }
@@ -198,15 +225,15 @@ void initialize_window(char *title, int grid_width, int grid_height) {
     }
     /* Set the screen title */
     SDL_WM_SetCaption(title, NULL);
-
-    }
+    
+}
 
 void initialize_gui(int grid_width, int grid_height) {
     initialize_window("Snake", grid_width, grid_height);
     initialize_figures();
     SDL_Event event;
     SDL_PollEvent(&event);
-    draw_grid(grid_width, grid_height);
+    draw_game_over(grid_width, grid_height);
     atexit(stop_gui);
 }
 

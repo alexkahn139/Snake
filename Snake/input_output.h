@@ -23,4 +23,5 @@ void load_snake_state(int grid_height, int grid_width);
 void load_walls(int grid_height, int grid_width);
 void load_apple(int grid_height, int grid_width);
 void save_apples_state(int grid_height, int grid_width);
+int get_highscore();
 #endif /* input_output_h */
