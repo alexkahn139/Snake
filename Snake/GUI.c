@@ -14,15 +14,41 @@
  * wanneer het spel eindigt.
  */
 static SDL_Surface *window;
+SDL_Surface* textSurface = NULL;
+//SDL_Rect textLocation = { 100, 100, 0, 0 };
+
+//TTF_Font* font = NULL;
+
+SDL_Color textColor = { 255, 255, 255 };
+
+
+void drawText(SDL_Surface* screen,
+              char* string,
+              int size,
+              int x, int y)
+{
+    TTF_Font* font = TTF_OpenFont("arial.ttf", size);
+    
+    SDL_Color foregroundColor = { 255, 255, 255 };
+    SDL_Color backgroundColor = { 255, 255, 255 };
+    
+    textSurface = TTF_RenderText_Solid(font, string, foregroundColor);
+    
+    SDL_Rect textLocation = { x, y, 0, 0 };
+    
+    SDL_BlitSurface(textSurface, NULL, screen, &textLocation);
+    
+    SDL_FreeSurface(textSurface);
+    
+    TTF_CloseFont(font);
+}
 
 
 
 void stop_gui() {
     SDL_Quit();
 }
-void TTF_Init(){
-    
-}
+
 SDL_Surface* images[4];
 
 void draw_cell(int x, int y, int kleur){
@@ -75,6 +101,7 @@ void draw_grid(int width, int height) {
     for (int i = 0; i < snake_length; i++) {
         draw_snake_part(i);
     }
+    //drawText(window, "test", 20, 10, 10);
     SDL_Flip(window);
 }
 
@@ -153,16 +180,22 @@ void initialize_window(char *title, int grid_width, int grid_height) {
         printf("Could not initialize SDL: %s\n", SDL_GetError());
         exit(1);
     }
+    if (TTF_Init() == -1){
+        printf("Could not initialize SDL: %s\n", SDL_GetError());
+        exit(1);
+    }
     int window_width = grid_width * IMAGE_WIDTH;
     int window_height = grid_height * IMAGE_HEIGHT;
     window = SDL_SetVideoMode(window_width, window_height, 0, SDL_HWPALETTE | SDL_DOUBLEBUF);
+    //font = TTF_OpenFont("arial.ttf", 12);
     if (window == NULL) {
         printf("Couldn't set screen mode to required dimensions: %s\n", SDL_GetError());
         exit(1);
     }
     /* Set the screen title */
     SDL_WM_SetCaption(title, NULL);
-}
+
+    }
 
 void initialize_gui(int grid_width, int grid_height) {
     initialize_window("Snake", grid_width, grid_height);

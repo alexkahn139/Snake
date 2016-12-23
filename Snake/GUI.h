@@ -4,6 +4,7 @@
 #include "SDL/SDL.h"
 //#include "SDL_ttf.h"
 //#include "SDL_ttf/SDL_ttf.h"
+#include "SDL_ttf.h"
 
 #include "grid.h"
 #include "Snake.h"

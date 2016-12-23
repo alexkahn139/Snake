@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC2004EF1E0D69AE005FE898 /* SDL_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC2004EE1E0D69AE005FE898 /* SDL_ttf.framework */; };
 		AC39F6F81DFDE7E600177E89 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = AC39F6F71DFDE7E600177E89 /* main.c */; };
 		AC39F6FF1DFDED7E00177E89 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC39F6FE1DFDED7E00177E89 /* SDL.framework */; };
 		AC39F7021DFDED8A00177E89 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = AC39F7011DFDED8A00177E89 /* SDLMain.m */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -30,6 +31,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AC2004EE1E0D69AE005FE898 /* SDL_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL_ttf.framework; path = ../../../../../../../Library/Frameworks/SDL_ttf.framework; sourceTree = "<group>"; };
 		AC39F6F41DFDE7E600177E89 /* Snake */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Snake; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC39F6F71DFDE7E600177E89 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		AC39F6FE1DFDED7E00177E89 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL.framework; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC2004EF1E0D69AE005FE898 /* SDL_ttf.framework in Frameworks */,
 				AC39F6FF1DFDED7E00177E89 /* SDL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,6 +123,7 @@
 		AC39F7101DFE253800177E89 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC2004EE1E0D69AE005FE898 /* SDL_ttf.framework */,
 				AC39F6FE1DFDED7E00177E89 /* SDL.framework */,
 				AC39F7111DFE253800177E89 /* Cocoa.framework */,
 			);
@@ -293,6 +297,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_VERSION = "";
 				LIBRARY_SEARCH_PATHS = /Users/alexandre/Dropbox/CW/Structuur2/Snake;
@@ -309,6 +314,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_VERSION = "";
 				LIBRARY_SEARCH_PATHS = /Users/alexandre/Dropbox/CW/Structuur2/Snake;
