@@ -21,4 +21,6 @@ void update_highscore(int score);
 void save_game_state(int grid_height, int grid_width);
 void load_game_state(int grid_height, int grid_width);
 void load_walls(int grid_height, int grid_width);
+void load_apple(int grid_height, int grid_width);
+void save_apples_state(int grid_height, int grid_width);
 #endif /* input_output_h */

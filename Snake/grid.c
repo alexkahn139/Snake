@@ -96,8 +96,8 @@ void make_apple(int grid_height, int grid_width){
 }
 void initialize_grid(int grid_height, int grid_width){
     grid = allocate_grid(grid_width, grid_height);
-    make_walls(grid_height, grid_width);
-    make_apple(grid_height, grid_width);
+    //make_walls(grid_height, grid_width);
+    //make_apple(grid_height, grid_width);
     
     
 }

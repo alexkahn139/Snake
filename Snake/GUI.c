@@ -102,6 +102,7 @@ void read_input(int width, int height) {
             case SDL_QUIT:
                 // De speler wil het spel afsluiten.
                 save_game_state(height, width);
+                save_apples_state(height, width);
                 exit(1);
             case SDL_KEYDOWN:
                 if (event.key.keysym.sym == SDLK_UP){

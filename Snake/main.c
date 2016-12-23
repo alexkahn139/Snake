@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
         initialize_gui(height, width);
         
         load_walls(height, width);
-        
+        load_apple(height, width);
         game_loop(width, height);
         
         //while (1) { read_input(width, height); }

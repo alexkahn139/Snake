@@ -78,8 +78,11 @@ void save_game_state(int grid_height, int grid_width){
         fprintf( fp,"%i",snake.snakebody[i].coordinates.x);
         fputs(" ", (FILE*)fp);
         fprintf( fp,"%i",snake.snakebody[i].coordinates.y);
-    }
-    fputs(" ", (FILE*)fp);
+    }}
+
+
+void save_apples_state(int grid_height, int grid_width){
+    fp=fopen("apples.txt", "w+");
     for (int y = 0; y< grid_height; y++) {      // De coordinaten van de appel(s) opslaan
         for (int x = 0; x < grid_width; x++){
             if (get_cell(x, y)->state == APPLE){
@@ -91,6 +94,7 @@ void save_game_state(int grid_height, int grid_width){
     }
     close_file();
 }
+
 void load_game_state(int grid_height, int grid_width){
 
         /*
@@ -108,6 +112,7 @@ void load_game_state(int grid_height, int grid_width){
         }
         fscanf(fp, "%s", buff);
         int x = atoi(buff);
+        fscanf(fp, "%s",buff
         int y = atoi(buff);
         get_cell(x, y)->state=APPLE;
         fclose(fp);
@@ -115,6 +120,21 @@ void load_game_state(int grid_height, int grid_width){
                */
 
      
+}
+void load_apple(int grid_height, int grid_width){
+    if (fp == fopen ("apples.txt","r")){
+        fp=fopen("apples.txt", "r+");
+        fscanf(fp, "%s", buff);
+        int x = atoi(buff);
+        fscanf(fp, "%s",buff);
+        int y = atoi(buff);
+        get_cell(x, y)->state=APPLE;
+        fclose(fp);
+        remove("apples.txt");
+    }
+    else{
+        make_apple(grid_height, grid_width);
+    }
 }
 void load_walls(int grid_height, int grid_width){
     if (fp == fopen ("walls.txt","r")){
@@ -133,4 +153,5 @@ void load_walls(int grid_height, int grid_width){
             get_cell(x,y)->state=WALL;
         }
     }
+    close_file();
 }
