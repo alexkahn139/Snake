@@ -93,7 +93,11 @@ void load_snake_state(int grid_height, int grid_width){
         fscanf(fp,"%s",buff);
         int direction=atoi(buff);
         snake->direction = direction;
-        for (int i = 0; i < snake_length; i++) {
+        fscanf(fp, "%s", buff);
+        snake->snakebody->coordinates->x = atoi(buff);
+        fscanf(fp, "%s", buff);
+        snake->snakebody->coordinates->y = atoi(buff);
+        for (int i = 1; i < snake_length; i++) {
             //struct Bodypart * current = snake->snakebody;
             fscanf(fp, "%s", buff);
             int x = atoi(buff);

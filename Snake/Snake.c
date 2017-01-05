@@ -27,8 +27,8 @@ int get_score(){
 
 void allocate_snake(int height, int width){
     snake = (struct Snake*)malloc(sizeof(struct Snake *));
-    snake->snakebody = malloc(sizeof(struct Bodypart *));
-    snake->snakebody->coordinates = malloc(sizeof(struct Coordinate *));
+    snake->snakebody = (struct Bodypart*) malloc(sizeof(struct Bodypart *));
+    snake->snakebody->coordinates = (struct Coordinate *)malloc(sizeof(struct Coordinate *));
     snake->snakebody->next = NULL;
     last_part = * snake->snakebody;
     snake_head = * snake->snakebody;
@@ -39,6 +39,16 @@ void init_snake(int height, int width){
     snake->snakebody->coordinates->y =  floor(width/2);
     
 }
+void deallocate_snake(){
+    struct Bodypart * current = snake->snakebody;
+    while(current != NULL){
+        struct Bodypart * next = current->next;
+        free(current->coordinates);
+        free(current);
+        current = next;
+    }
+    free(snake);
+}
 
 
 void extend_snake(int x, int y){
@@ -46,18 +56,15 @@ void extend_snake(int x, int y){
     while (current->next != NULL) {
         current = current->next;
     }
-    snake_length++;
-    current->next = malloc(sizeof(struct Bodypart *));
-    current->next->coordinates = malloc(sizeof(struct Coordinate *));
+    current->next = (struct Bodypart *)malloc(sizeof(struct Bodypart *));
+    current->next->coordinates = (struct Coordinate *) malloc(sizeof(struct Coordinate *));
     current->next->coordinates->x = x;
     current->next->coordinates->y = y;
     current->next->next = NULL;
-    printf("realloc worked \n");
 }
 void snake_eat(int x, int y){
+    snake_length++;
     extend_snake(x,y);
-    
-    
     printf("Snake is %i parts long \n",snake_length);
 }
 
