@@ -89,7 +89,7 @@ void move_head(int width, int height){
     }
 }
 void check_apple(int width, int height, int x, int y){
-   
+    
     if (get_cell(x, y)->state == APPLE){
         snake_eat(x, y);
         eat_apple(x, y, width,height);
@@ -104,18 +104,18 @@ void check_wall(){
     }
 }
 /*
-bool check_bodyparts_loop(int x, int y, int i){
-    if(x == snake.snakebody[i].coordinates.x && y == snake.snakebody[i].coordinates.y){
-        return false;
-    }
-    else if (i < snake_length){
-        i++;
-        return check_bodyparts_loop(x, y, i);
-    }
-    else{
-        return true;
-    }
-}*/
+ bool check_bodyparts_loop(int x, int y, int i){
+ if(x == snake.snakebody[i].coordinates.x && y == snake.snakebody[i].coordinates.y){
+ return false;
+ }
+ else if (i < snake_length){
+ i++;
+ return check_bodyparts_loop(x, y, i);
+ }
+ else{
+ return true;
+ }
+ }*/
 
 void check_bodyparts_collision(){
     int x_co = snake_head.coordinates->x;
@@ -127,25 +127,25 @@ void move_tail(){
     int last_x =snake->snakebody->coordinates->x;
     int last_y= snake->snakebody->coordinates->y;
     struct Bodypart * current = snake->snakebody;
-        while (current != NULL) {
-            int x = current->coordinates->x;
-            int y = current->coordinates->y;
-            current->coordinates->x = last_x;
-            current->coordinates->y = last_y;
-            current = current->next;
-            last_x=x;
-            last_y=y;
-        }
+    while (current != NULL) {
+        int x = current->coordinates->x;
+        int y = current->coordinates->y;
+        current->coordinates->x = last_x;
+        current->coordinates->y = last_y;
+        current = current->next;
+        last_x=x;
+        last_y=y;
+    }
     
 }
 void move_snake(int width, int height){
     
     int old_x =snake_head.coordinates->x;
     int old_y =snake_head.coordinates->y;
+    move_tail();
     move_head(width, height);
     
     check_apple(width, height, old_x, old_y);
-   move_tail();
     //check_bodyparts_collision();
     check_wall();
     update_highscore(score);
