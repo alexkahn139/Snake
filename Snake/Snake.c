@@ -103,24 +103,24 @@ void check_wall(){
         game_running = false;
     }
 }
-/*
- bool check_bodyparts_loop(int x, int y, int i){
- if(x == snake.snakebody[i].coordinates.x && y == snake.snakebody[i].coordinates.y){
- return false;
- }
- else if (i < snake_length){
- i++;
- return check_bodyparts_loop(x, y, i);
- }
- else{
- return true;
- }
- }*/
+
+bool check_bodyparts_loop(int x, int y, int i){
+    struct Bodypart * current = snake->snakebody->next; //Anders checkt die de head
+    bool no_collision = true;
+    while (current != NULL) {
+        if (x == current->coordinates->x && y == current->coordinates->y){
+            no_collision = false;
+            break;
+        }
+        current = current->next;
+    }
+    return no_collision;
+}
 
 void check_bodyparts_collision(){
     int x_co = snake_head.coordinates->x;
     int y_co = snake_head.coordinates->y;
-    //game_running = check_bodyparts_loop(x_co, y_co, 2);    //Start at 1 because the head can't collide with itself
+    game_running = check_bodyparts_loop(x_co, y_co, 2);    //Start at 1 because the head can't collide with itself
 }
 //Idee voor de slang te verlengen, array achterstevoren aflopen en get_bodypart(n)->coordinates.x = get_bodypart(n-1)->coordinates.x
 void move_tail(){
@@ -146,7 +146,7 @@ void move_snake(int width, int height){
     move_head(width, height);
     
     check_apple(width, height, old_x, old_y);
-    //check_bodyparts_collision();
+    check_bodyparts_collision();
     check_wall();
     update_highscore(score);
 }
