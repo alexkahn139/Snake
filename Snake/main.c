@@ -11,7 +11,7 @@
 #include <time.h>
 #include "grid.h"
 #include "gui.h"
-#include "Snake.h"
+#include "snake.h"
 #include "game.h"
 #include "inputoutput.h"
 

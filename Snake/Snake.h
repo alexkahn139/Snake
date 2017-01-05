@@ -6,8 +6,8 @@
 //  Copyright © 2016 Alexandre Kahn. All rights reserved.
 //
 
-#ifndef Snake_h
-#define Snake_h
+#ifndef snake_h
+#define snake_h
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>

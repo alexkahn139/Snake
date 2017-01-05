@@ -5,7 +5,7 @@
 #include "SDL_ttf.h"
 #include <stdbool.h>
 #include "grid.h"
-#include "Snake.h"
+#include "snake.h"
 #include "inputoutput.h"
 
 

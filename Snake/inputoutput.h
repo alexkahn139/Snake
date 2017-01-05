@@ -13,7 +13,7 @@
 
 #include <stdio.h>
 #include "grid.h"
-#include "Snake.h"
+#include "snake.h"
 
 
 

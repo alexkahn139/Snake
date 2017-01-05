@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include<unistd.h>
 #include <stdbool.h>
-#include "Snake.h"
+#include "snake.h"
 #include "gui.h"
 #include "inputoutput.h"
 

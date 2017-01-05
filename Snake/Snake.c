@@ -7,7 +7,7 @@
 //
 // http://www.learn-c.org/en/Linked_lists
 
-#include "Snake.h"
+#include "snake.h"
 
 
 
