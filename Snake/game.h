@@ -11,13 +11,20 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include<unistd.h>
+#include <stdbool.h>
 #include "Snake.h"
 #include "gui.h"
-#include "input_output.h"
-#include <stdbool.h>
+#include "inputoutput.h"
+
  
 
 void game_loop(int width, int height);
 extern bool game_running;
 void pause_game();
+
+
+
+
+
 #endif /* game_h */

@@ -6,9 +6,8 @@
 //  Copyright © 2016 Alexandre Kahn. All rights reserved.
 //
 
-#include "input_output.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "inputoutput.h"
+
 
 FILE *fp;
 char buff[255];

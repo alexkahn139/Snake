@@ -6,8 +6,10 @@
 //  Copyright © 2016 Alexandre Kahn. All rights reserved.
 //
 
-#ifndef input_output_h
-#define input_output_h
+#ifndef inputoutput_h
+#define inputoutput_h
+
+#include <stdlib.h>
 
 #include <stdio.h>
 #include "grid.h"

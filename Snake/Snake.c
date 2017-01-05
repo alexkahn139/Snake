@@ -8,9 +8,7 @@
 // http://www.learn-c.org/en/Linked_lists
 
 #include "Snake.h"
-#include <stdlib.h>
-#include <math.h>
-#include <stdbool.h>
+
 
 
 struct Snake * snake;
@@ -33,12 +31,13 @@ void allocate_snake(int height, int width){
     last_part = * snake->snakebody;
     snake_head = * snake->snakebody;
 }
-void init_snake(int height, int width){
+
+void initialize_snake(int width, int height){
     snake->direction = RIGHT;
     snake->snakebody->coordinates->x = floor(height/2);
     snake->snakebody->coordinates->y =  floor(width/2);
-    
 }
+
 void deallocate_snake(){
     struct Bodypart * current = snake->snakebody;
     while(current != NULL){
@@ -49,7 +48,6 @@ void deallocate_snake(){
     }
     free(snake);
 }
-
 
 void extend_snake(int x, int y){
     struct Bodypart * current = snake->snakebody;
@@ -62,6 +60,7 @@ void extend_snake(int x, int y){
     current->next->coordinates->y = y;
     current->next->next = NULL;
 }
+
 void snake_eat(int x, int y){
     snake_length++;
     extend_snake(x,y);
@@ -95,14 +94,15 @@ void move_head(int width, int height){
         else snake_head.coordinates->x--;
     }
 }
+
 void check_apple(int width, int height, int x, int y){
-    
     if (get_cell(x, y)->state == APPLE){
         snake_eat(x, y);
         eat_apple(x, y, width,height);
         score = score + 10;
     }
 }
+
 void check_wall(){
     int x = snake_head.coordinates->x;
     int y = snake_head.coordinates->y;
@@ -129,7 +129,7 @@ void check_bodyparts_collision(){
     int y_co = snake_head.coordinates->y;
     game_running = check_bodyparts_loop(x_co, y_co, 2);    //Start at 1 because the head can't collide with itself
 }
-//Idee voor de slang te verlengen, array achterstevoren aflopen en get_bodypart(n)->coordinates.x = get_bodypart(n-1)->coordinates.x
+
 void move_tail(){
     int last_x =snake->snakebody->coordinates->x;
     int last_y= snake->snakebody->coordinates->y;
@@ -143,10 +143,9 @@ void move_tail(){
         last_x=x;
         last_y=y;
     }
-    
 }
+
 void move_snake(int width, int height){
-    
     int old_x =snake_head.coordinates->x;
     int old_y =snake_head.coordinates->y;
     move_tail();
@@ -157,7 +156,6 @@ void move_snake(int width, int height){
     check_wall();
     update_highscore(score);
 }
-
 
 void change_direction(int direction){ // Could be done with modulo, but this is way easier to read
     int snake_direction = snake->direction;
@@ -194,9 +192,7 @@ void change_direction(int direction){ // Could be done with modulo, but this is 
         }
     }
 }
-void initialize_snake(int grid_width, int grid_height){
-    init_snake(grid_height, grid_height);
-}
+
 struct Snake * get_snake(){
     return snake;
 }

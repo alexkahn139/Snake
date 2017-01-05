@@ -13,7 +13,7 @@
 #include "gui.h"
 #include "Snake.h"
 #include "game.h"
-#include "input_output.h"
+#include "inputoutput.h"
 
 extern int width;
 extern int height;

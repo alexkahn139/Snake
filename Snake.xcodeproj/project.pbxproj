@@ -12,7 +12,7 @@
 		AC39F6FF1DFDED7E00177E89 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC39F6FE1DFDED7E00177E89 /* SDL.framework */; };
 		AC39F7021DFDED8A00177E89 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = AC39F7011DFDED8A00177E89 /* SDLMain.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		AC39F70A1DFDEEFA00177E89 /* Snake.c in Sources */ = {isa = PBXBuildFile; fileRef = AC39F7081DFDEEFA00177E89 /* Snake.c */; };
-		AC7C19F31E0BDFA7008EC33E /* input_output.c in Sources */ = {isa = PBXBuildFile; fileRef = AC7C19F11E0BDFA7008EC33E /* input_output.c */; };
+		AC83D4C41E1EE80300709FDD /* inputoutput.c in Sources */ = {isa = PBXBuildFile; fileRef = AC83D4C21E1EE80300709FDD /* inputoutput.c */; };
 		AC842CA51DFEC65C006B2C16 /* gui.c in Sources */ = {isa = PBXBuildFile; fileRef = AC842CA41DFEC65C006B2C16 /* gui.c */; };
 		AC842CA81DFEC6CD006B2C16 /* grid.c in Sources */ = {isa = PBXBuildFile; fileRef = AC842CA61DFEC6CD006B2C16 /* grid.c */; };
 		AC842CAB1DFEC6F1006B2C16 /* game.c in Sources */ = {isa = PBXBuildFile; fileRef = AC842CAA1DFEC6F1006B2C16 /* game.c */; };
@@ -41,9 +41,9 @@
 		AC39F7091DFDEEFA00177E89 /* Snake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Snake.h; sourceTree = "<group>"; };
 		AC39F7111DFE253800177E89 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		AC39F7161DFE2BC300177E89 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
-		AC7C19F11E0BDFA7008EC33E /* input_output.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = input_output.c; sourceTree = "<group>"; };
-		AC7C19F21E0BDFA7008EC33E /* input_output.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = input_output.h; sourceTree = "<group>"; };
 		AC7C19F91E0BF2F0008EC33E /* SDL_ttf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDL_ttf.h; sourceTree = "<group>"; };
+		AC83D4C21E1EE80300709FDD /* inputoutput.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inputoutput.c; sourceTree = "<group>"; };
+		AC83D4C31E1EE80300709FDD /* inputoutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inputoutput.h; sourceTree = "<group>"; };
 		AC842CA31DFEC65C006B2C16 /* gui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gui.h; sourceTree = "<group>"; };
 		AC842CA41DFEC65C006B2C16 /* gui.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gui.c; sourceTree = "<group>"; };
 		AC842CA61DFEC6CD006B2C16 /* grid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = grid.c; sourceTree = "<group>"; };
@@ -96,10 +96,10 @@
 			isa = PBXGroup;
 			children = (
 				AC39F6F71DFDE7E600177E89 /* main.c */,
-				AC7C19F11E0BDFA7008EC33E /* input_output.c */,
 				AC842CAA1DFEC6F1006B2C16 /* game.c */,
 				AC39F7081DFDEEFA00177E89 /* Snake.c */,
 				AC842CA41DFEC65C006B2C16 /* gui.c */,
+				AC83D4C21E1EE80300709FDD /* inputoutput.c */,
 				AC842CA61DFEC6CD006B2C16 /* grid.c */,
 			);
 			name = Sourcefiles;
@@ -108,6 +108,7 @@
 		AC39F7071DFDEE1D00177E89 /* Headerfiles */ = {
 			isa = PBXGroup;
 			children = (
+				AC83D4C31E1EE80300709FDD /* inputoutput.h */,
 				AC39F7001DFDED8A00177E89 /* SDLMain.h */,
 				AC842CA71DFEC6CD006B2C16 /* grid.h */,
 				AC842CA31DFEC65C006B2C16 /* gui.h */,
@@ -115,7 +116,6 @@
 				AC39F7011DFDED8A00177E89 /* SDLMain.m */,
 				AC842CA91DFEC6F1006B2C16 /* game.h */,
 				AC39F7091DFDEEFA00177E89 /* Snake.h */,
-				AC7C19F21E0BDFA7008EC33E /* input_output.h */,
 			);
 			name = Headerfiles;
 			sourceTree = "<group>";
@@ -193,7 +193,7 @@
 				AC842CA51DFEC65C006B2C16 /* gui.c in Sources */,
 				AC842CAB1DFEC6F1006B2C16 /* game.c in Sources */,
 				AC39F6F81DFDE7E600177E89 /* main.c in Sources */,
-				AC7C19F31E0BDFA7008EC33E /* input_output.c in Sources */,
+				AC83D4C41E1EE80300709FDD /* inputoutput.c in Sources */,
 				AC842CA81DFEC6CD006B2C16 /* grid.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

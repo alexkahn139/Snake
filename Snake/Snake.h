@@ -8,11 +8,13 @@
 
 #ifndef Snake_h
 #define Snake_h
-
+#include <stdlib.h>
+#include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include "grid.h"
 #include "game.h"
-//int snake_length;
+
 
 enum Direction{
     UP,
@@ -33,7 +35,7 @@ struct Bodypart{
     struct Bodypart * next;
 };
 void allocate_snake(int height, int width);
-void initialize_snake(int grid_width, int grid_height);
+void initialize_snake(int width, int height);
 void move_snake(int width, int height);
 void extend_snake(int x, int y);
 //extern struct Snake snake;

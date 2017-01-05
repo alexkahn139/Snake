@@ -7,7 +7,7 @@
 //
 
 #include "game.h"
-#include<unistd.h>
+
 int counter = 0;
 bool game_running = true;
 bool not_paused = true;

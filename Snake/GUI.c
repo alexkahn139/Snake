@@ -6,13 +6,14 @@
 //  Copyright © 2016 Alexandre Kahn. All rights reserved.
 //
 
-#include "gui.h"
-#include "Snake.h"
 /*
  * Dit is het venster dat getoond zal worden en waarin het speelveld weergegeven wordt.
  * Dit venster wordt aangemaakt bij het initialiseren van de GUI en wordt weer afgebroken
  * wanneer het spel eindigt.
  */
+#include "gui.h"
+
+
 static SDL_Surface *window;
 SDL_Surface* textSurface = NULL;
 TTF_Font* font = NULL;
@@ -77,8 +78,6 @@ void draw_snake_head(){
     struct Snake snake = * get_snake();
     int x = snake.snakebody->coordinates->x;
     int y = snake.snakebody->coordinates->y;
-    printf("x %i",x);
-    printf(" en %i \n",y);
     offset.x = x*IMAGE_WIDTH;
     offset.y = y*IMAGE_HEIGHT;
     

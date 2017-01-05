@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include "grid.h"
 #include "Snake.h"
-#include "input_output.h"
+#include "inputoutput.h"
 
 
 /*
