@@ -94,7 +94,7 @@ void load_snake_state(int grid_height, int grid_width){
         int direction=atoi(buff);
         snake->direction = direction;
         fscanf(fp, "%s", buff);
-        snake->snakebody->coordinates->x = atoi(buff);
+        snake->snakebody->coordinates->x = atoi(buff); //Eerste moeten de coordinaten van verandert worden, rest moet gealloceerd worden
         fscanf(fp, "%s", buff);
         snake->snakebody->coordinates->y = atoi(buff);
         for (int i = 1; i < snake_length; i++) {

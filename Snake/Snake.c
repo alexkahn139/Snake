@@ -26,9 +26,9 @@ int get_score(){
 }
 
 void allocate_snake(int height, int width){
-    snake = (struct Snake*)malloc(sizeof(struct Snake *));
-    snake->snakebody = (struct Bodypart*) malloc(sizeof(struct Bodypart *));
-    snake->snakebody->coordinates = (struct Coordinate *)malloc(sizeof(struct Coordinate *));
+    snake = malloc(sizeof(struct Snake *));
+    snake->snakebody = malloc(sizeof(struct Bodypart *));
+    snake->snakebody->coordinates = malloc(sizeof(struct Coordinate *));
     snake->snakebody->next = NULL;
     last_part = * snake->snakebody;
     snake_head = * snake->snakebody;
@@ -56,8 +56,8 @@ void extend_snake(int x, int y){
     while (current->next != NULL) {
         current = current->next;
     }
-    current->next = (struct Bodypart *)malloc(sizeof(struct Bodypart *));
-    current->next->coordinates = (struct Coordinate *) malloc(sizeof(struct Coordinate *));
+    current->next = malloc(sizeof(struct Bodypart *));
+    current->next->coordinates = malloc(sizeof(struct Coordinate *));
     current->next->coordinates->x = x;
     current->next->coordinates->y = y;
     current->next->next = NULL;
@@ -195,9 +195,7 @@ void change_direction(int direction){ // Could be done with modulo, but this is 
     }
 }
 void initialize_snake(int grid_width, int grid_height){
-    allocate_snake(grid_height, grid_height);
     init_snake(grid_height, grid_height);
-    
 }
 struct Snake * get_snake(){
     return snake;
