@@ -19,9 +19,6 @@ struct Cell *get_cell(int x, int y) {
 }
 
 
-
-
-
 struct Cell *** allocate_grid(int grid_width, int grid_height){
     struct Cell *** grid = malloc(grid_height * sizeof(struct Cell **));
     for (int y = 0 ;y < grid_height; y++) {

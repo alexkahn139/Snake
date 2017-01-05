@@ -15,17 +15,12 @@
  */
 static SDL_Surface *window;
 SDL_Surface* textSurface = NULL;
-//SDL_Rect textLocation = { 100, 100, 0, 0 };
-
 TTF_Font* font = NULL;
 
 SDL_Color textColor = { 255, 255, 255 };
 
 
-void drawText(SDL_Surface* screen,
-              char* string,
-              int size,
-              int x, int y)
+void drawText(SDL_Surface* screen, char* string, int size, int x, int y)
 {
     font = TTF_OpenFont("Images/arial.ttf", size);
     
@@ -59,21 +54,31 @@ void draw_cell(int x, int y, int kleur){
     SDL_BlitSurface(images[kleur], NULL, window, &offset);
     
 }
-void draw_snake_part(int part){
+void draw_snake_part(){
     SDL_Rect offset;
-    struct Coordinate coordinates = get_coordinates(part);
-    int x = coordinates.x;
-    int y = coordinates.y;
-    offset.x = x*IMAGE_WIDTH;
-    offset.y = y*IMAGE_HEIGHT;
+    //struct Coordinate coordinates = get_coordinates(part);
+    struct Snake * snake = get_snake();
+    struct Bodypart * current = snake->snakebody;
+    if (current!= NULL) {
+        while (current->next != NULL) {
+            int x = current->coordinates->x;
+            int y = current->coordinates->y;
+            offset.x = x*IMAGE_WIDTH;
+            offset.y = y*IMAGE_HEIGHT;
+            current = current->next;
+            SDL_BlitSurface(images[TAIL], NULL, window, &offset);
+        }
+    }
     
-    SDL_BlitSurface(images[TAIL], NULL, window, &offset);
 }
 void draw_snake_head(){
     SDL_Rect offset;
-    struct Coordinate coordinates = get_coordinates(0);
-    int x = coordinates.x;
-    int y = coordinates.y;
+    //struct Coordinate coordinates = get_coordinates(0);
+    struct Snake snake = * get_snake();
+    int x = snake.snakebody->coordinates->x;
+    int y = snake.snakebody->coordinates->y;
+    printf("x %i",x);
+    printf(" en %i \n",y);
     offset.x = x*IMAGE_WIDTH;
     offset.y = y*IMAGE_HEIGHT;
     
@@ -97,10 +102,9 @@ void draw_grid(int width, int height) {
             else draw_cell(x, y, COVERED);
         }
     }
-    //draw_snake_head();
-    for (int i = 0; i < snake_length; i++) {
-        draw_snake_part(i);
-    }
+    draw_snake_head();
+    draw_snake_part();
+    
     int score = get_score();
     char score_str[10];
     sprintf(score_str, "%d", score);
@@ -146,7 +150,7 @@ void read_input(int width, int height, bool game_running) {
             switch (event.type) {
                 case SDL_QUIT:
                     // De speler wil het spel afsluiten.
-                    save_snake_state(height, width);
+                    //save_snake_state(height, width);
                     save_apples_state(height, width);
                     exit(1);
                 case SDL_KEYDOWN:
@@ -233,7 +237,7 @@ void initialize_gui(int grid_width, int grid_height) {
     initialize_figures();
     SDL_Event event;
     SDL_PollEvent(&event);
-    draw_game_over(grid_width, grid_height);
+    //draw_game_over(grid_width, grid_height);
     atexit(stop_gui);
 }
 

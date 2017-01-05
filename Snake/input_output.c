@@ -55,14 +55,14 @@ void update_highscore(int score){
 void save_snake_state(int grid_height, int grid_width){
     fp=fopen("snake.txt", "w+");
     fprintf(fp, "%i",snake_length);
-    struct Snake snake = get_snake();
+    struct Snake *snake = get_snake();
     fputs(" ", (FILE*)fp);
-    fprintf(fp, "%i", snake.snakebody[0].direction);
+    fprintf(fp, "%i", snake->direction);
     for (int i = 0; i < snake_length; i++){
         fputs(" ", (FILE*)fp);
-        fprintf( fp,"%i",snake.snakebody[i].coordinates.x);
+        fprintf( fp,"%i",snake->snakebody->coordinates->x);
         fputs(" ", (FILE*)fp);
-        fprintf( fp,"%i",snake.snakebody[i].coordinates.y);
+        fprintf( fp,"%i",snake->snakebody->coordinates->y);
     }
 }
 
@@ -86,17 +86,17 @@ void load_snake_state(int grid_height, int grid_width){
     if (fp == fopen ("snake.txt","r")){
         fp=fopen("snake.txt", "r+");
         
-        struct Snake snake = get_snake();
+        struct Snake *snake = get_snake();
         fscanf(fp, "%s",buff);
         snake_length = atoi(buff);
         fscanf(fp,"%s",buff);
         int direction=atoi(buff);
         for (int i = 0; i < snake_length; i++) {
             fscanf(fp, "%s", buff);
-            snake.snakebody[i].coordinates.x = atoi(buff);
+            snake->snakebody->coordinates->x = atoi(buff);
             fscanf(fp, "%s", buff);
-            snake.snakebody[i].coordinates.y = atoi(buff);
-            snake.snakebody[i].direction = direction;
+            snake->snakebody->coordinates->y = atoi(buff);
+            snake->direction = direction;
         }
         fclose(fp);
         remove("snake.txt");

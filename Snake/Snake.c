@@ -13,48 +13,48 @@
 #include <stdbool.h>
 
 
-struct Snake snake;
-
-int snake_max_size = 300; //Na een bepaalde lengte wordt er een nieuw level begonnen
+struct Snake * snake;
 
 int snake_length = 1;
-int array_length = 100;
+
+struct Bodypart last_part;
+struct Bodypart snake_head;
+
 int score = 0;
 int get_score(){
     return score;
 }
 
 void allocate_snake(int height, int width){
-    snake.snakebody = (struct Bodypart*)malloc(array_length * sizeof(struct Bodypart));
+    snake = (struct Snake*)malloc(sizeof(struct Snake *));
+    snake->snakebody = malloc(sizeof(struct Bodypart *));
+    snake->snakebody->coordinates = malloc(sizeof(struct Coordinate *));
+    snake->snakebody->next = NULL;
+    last_part = * snake->snakebody;
+    snake_head = * snake->snakebody;
 }
-    //snake.snakebody = (struct Bodypart*)malloc(snake_length * sizeof(struct Bodypart));
 void init_snake(int height, int width){
-    //struct Snake snake = get_snake();
-    snake.snakebody[0].direction = RIGHT;
-    snake.snakebody[0].coordinates.x = floor(height/2);
-    snake.snakebody[0].coordinates.y =  floor(width/2);
-    //snake.snakebody[0].is_head = 1;
+    snake->direction = RIGHT;
+    snake->snakebody->coordinates->x = floor(height/2);
+    snake->snakebody->coordinates->y =  floor(width/2);
+    
 }
 
-struct Coordinate get_coordinates(int part){
-    return snake.snakebody[part].coordinates;
-}
+
 void extend_snake(int x, int y){
-    //bv om de 5 nieuwe array maken
-    
-    //snake.snakebody = (struct Bodypart*)malloc(snake_length * sizeof(struct Bodypart));
-    //snake.snakebody = (struct Bodypart*) realloc (snake.snakebody, (snake_length * sizeof(struct Bodypart)));
-    snake.snakebody[snake_length].direction = snake.snakebody[snake_length-1].direction;
-    
-    snake.snakebody[snake_length].coordinates.x = x;
-    snake.snakebody[snake_length].coordinates.y = y;
-    
-    
-    //snake.snakebody[snake_length].is_head = 0;
+    struct Bodypart * current = snake->snakebody;
+    while (current->next != NULL) {
+        current = current->next;
+    }
+    snake_length++;
+    current->next = malloc(sizeof(struct Bodypart *));
+    current->next->coordinates = malloc(sizeof(struct Coordinate *));
+    current->next->coordinates->x = x;
+    current->next->coordinates->y = y;
+    current->next->next = NULL;
     printf("realloc worked \n");
 }
 void snake_eat(int x, int y){
-    snake_length++;
     extend_snake(x,y);
     
     
@@ -63,29 +63,29 @@ void snake_eat(int x, int y){
 
 void move_head(int width, int height){
     //the head
-    if (snake.snakebody[0].direction == UP){
-        if (snake.snakebody[0].coordinates.y == 0){
-            snake.snakebody[0].coordinates.y = height - 1;
+    if (snake->direction == UP){
+        if (snake_head.coordinates->y == 0){
+            snake_head.coordinates->y = height - 1;
         }
-        else snake.snakebody[0].coordinates.y--;
+        else snake_head.coordinates->y--;
     }
-    else if (snake.snakebody[0].direction == DOWN){
-        if (snake.snakebody[0].coordinates.y == height -1){
-            snake.snakebody[0].coordinates.y = 0;
+    else if (snake->direction == DOWN){
+        if (snake_head.coordinates->y == height -1){
+            snake_head.coordinates->y = 0;
         }
-        else snake.snakebody[0].coordinates.y++;
+        else snake_head.coordinates->y++;
     }
-    else if (snake.snakebody[0].direction ==  RIGHT){
-        if (snake.snakebody[0].coordinates.x == width -1){
-            snake.snakebody[0].coordinates.x = 0;
+    else if (snake->direction ==  RIGHT){
+        if (snake_head.coordinates->x == width - 1){
+            snake_head.coordinates->x = 0;
         }
-        else snake.snakebody[0].coordinates.x++;
+        else snake_head.coordinates->x++;
     }
-    else if (snake.snakebody[0].direction == LEFT){
-        if (snake.snakebody[0].coordinates.x == 0){
-            snake.snakebody[0].coordinates.x = width -1;
+    else if (snake->direction == LEFT){
+        if (snake_head.coordinates->x == 0){
+            snake_head.coordinates->x = width - 1;
         }
-        else snake.snakebody[0].coordinates.x--;
+        else snake_head.coordinates->x--;
     }
 }
 void check_apple(int width, int height, int x, int y){
@@ -97,12 +97,13 @@ void check_apple(int width, int height, int x, int y){
     }
 }
 void check_wall(){
-    int x = snake.snakebody[0].coordinates.x;
-    int y = snake.snakebody[0].coordinates.y;
+    int x = snake_head.coordinates->x;
+    int y = snake_head.coordinates->y;
     if (get_cell(x, y)->state ==WALL){
         game_running = false;
     }
 }
+/*
 bool check_bodyparts_loop(int x, int y, int i){
     if(x == snake.snakebody[i].coordinates.x && y == snake.snakebody[i].coordinates.y){
         return false;
@@ -114,47 +115,51 @@ bool check_bodyparts_loop(int x, int y, int i){
     else{
         return true;
     }
-}
+}*/
 
 void check_bodyparts_collision(){
-    int x_co = snake.snakebody[0].coordinates.x;
-    int y_co = snake.snakebody[0].coordinates.y;
-    game_running = check_bodyparts_loop(x_co, y_co, 2);    //Start at 1 because the head can't collide with itself
+    int x_co = snake_head.coordinates->x;
+    int y_co = snake_head.coordinates->y;
+    //game_running = check_bodyparts_loop(x_co, y_co, 2);    //Start at 1 because the head can't collide with itself
 }
 //Idee voor de slang te verlengen, array achterstevoren aflopen en get_bodypart(n)->coordinates.x = get_bodypart(n-1)->coordinates.x
 void move_tail(){
-    //if (snake_length < snake_max_size && snake_length > 0){
-    for (int i = snake_length; i > 0 ; i--) {
-        snake.snakebody[i].coordinates.x = snake.snakebody[i-1].coordinates.x;
-        snake.snakebody[i].coordinates.y = snake.snakebody[i-1].coordinates.y;
-        //}
-    }//else newlevel
+    int last_x =snake->snakebody->coordinates->x;
+    int last_y= snake->snakebody->coordinates->y;
+    struct Bodypart * current = snake->snakebody;
+        while (current != NULL) {
+            int x = current->coordinates->x;
+            int y = current->coordinates->y;
+            current->coordinates->x = last_x;
+            current->coordinates->y = last_y;
+            current = current->next;
+            last_x=x;
+            last_y=y;
+        }
+    
 }
 void move_snake(int width, int height){
-    move_tail();
-    int old_x =snake.snakebody[0].coordinates.x;
-    int old_y =snake.snakebody[0].coordinates.y;
+    
+    int old_x =snake_head.coordinates->x;
+    int old_y =snake_head.coordinates->y;
     move_head(width, height);
+    
     check_apple(width, height, old_x, old_y);
-   
-    check_bodyparts_collision();
+   move_tail();
+    //check_bodyparts_collision();
     check_wall();
     update_highscore(score);
-   
-    
-    
-    
 }
 
 
 void change_direction(int direction){ // Could be done with modulo, but this is way easier to read
-    int snake_direction =snake.snakebody[0].direction;
+    int snake_direction = snake->direction;
     if (snake_direction == UP){
         if (direction == DOWN){
             printf("Not an option");
         }
         else{
-            snake.snakebody[0].direction = direction;
+            snake->direction = direction;
         }
     }
     if (snake_direction == DOWN){
@@ -162,7 +167,7 @@ void change_direction(int direction){ // Could be done with modulo, but this is 
             printf("Not an option");
         }
         else{
-            snake.snakebody[0].direction = direction;
+            snake->direction = direction;
         }
     }
     if (snake_direction == RIGHT){
@@ -170,7 +175,7 @@ void change_direction(int direction){ // Could be done with modulo, but this is 
             printf("Not an option");
         }
         else{
-            snake.snakebody[0].direction = direction;
+            snake->direction = direction;
         }
     }
     if (snake_direction == LEFT){
@@ -178,7 +183,7 @@ void change_direction(int direction){ // Could be done with modulo, but this is 
             printf("Not an option");
         }
         else{
-            snake.snakebody[0].direction = direction;
+            snake->direction = direction;
         }
     }
 }
@@ -187,6 +192,6 @@ void initialize_snake(int grid_width, int grid_height){
     init_snake(grid_height, grid_height);
     
 }
-struct Snake get_snake(){
+struct Snake * get_snake(){
     return snake;
 }

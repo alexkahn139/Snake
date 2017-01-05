@@ -2,8 +2,6 @@
 #define GUI_H_
 
 #include "SDL/SDL.h"
-//#include "SDL_ttf.h"
-//#include "SDL_ttf/SDL_ttf.h"
 #include "SDL_ttf.h"
 #include <stdbool.h>
 #include "grid.h"

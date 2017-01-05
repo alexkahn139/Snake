@@ -25,11 +25,12 @@ struct Coordinate{
     int y;
 };
 struct Snake{
-    struct Bodypart* snakebody;
+    struct Bodypart * snakebody;
+    enum Direction direction;
 };
 struct Bodypart{
-    struct Coordinate coordinates;
-    enum Direction direction;
+    struct Coordinate * coordinates;
+    struct Bodypart * next;
 };
 void allocate_snake(int height, int width);
 void initialize_snake(int grid_width, int grid_height);
@@ -43,7 +44,7 @@ struct Coordinate get_coordinates(int part);
 
 void change_direction(int direction);
 
-struct Snake get_snake();
+struct Snake * get_snake();
 
 int get_score();
 
