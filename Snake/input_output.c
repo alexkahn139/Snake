@@ -58,11 +58,13 @@ void save_snake_state(int grid_height, int grid_width){
     struct Snake *snake = get_snake();
     fputs(" ", (FILE*)fp);
     fprintf(fp, "%i", snake->direction);
-    for (int i = 0; i < snake_length; i++){
+    struct Bodypart * current = snake->snakebody;
+    while (current != NULL) {
         fputs(" ", (FILE*)fp);
-        fprintf( fp,"%i",snake->snakebody->coordinates->x);
+        fprintf( fp,"%i",current->coordinates->x);
         fputs(" ", (FILE*)fp);
-        fprintf( fp,"%i",snake->snakebody->coordinates->y);
+        fprintf( fp,"%i",current->coordinates->y);
+        current = current->next;
     }
 }
 
@@ -85,18 +87,19 @@ void load_snake_state(int grid_height, int grid_width){
     allocate_snake(grid_height, grid_width);
     if (fp == fopen ("snake.txt","r")){
         fp=fopen("snake.txt", "r+");
-        
         struct Snake *snake = get_snake();
         fscanf(fp, "%s",buff);
         snake_length = atoi(buff);
         fscanf(fp,"%s",buff);
         int direction=atoi(buff);
+        snake->direction = direction;
         for (int i = 0; i < snake_length; i++) {
+            //struct Bodypart * current = snake->snakebody;
             fscanf(fp, "%s", buff);
-            snake->snakebody->coordinates->x = atoi(buff);
+            int x = atoi(buff);
             fscanf(fp, "%s", buff);
-            snake->snakebody->coordinates->y = atoi(buff);
-            snake->direction = direction;
+            int y = atoi(buff);
+            extend_snake(x, y);
         }
         fclose(fp);
         remove("snake.txt");

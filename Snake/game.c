@@ -22,6 +22,8 @@ void game_loop(int width, int height){
         draw_grid(width, height);
     }
     save_to_file();
+    deallocate_snake();
+    deallocate_grid(width, height);
     while(1){
         read_input(width, height, game_running);
         draw_game_over(width, height);

@@ -35,7 +35,7 @@ struct Bodypart{
 void allocate_snake(int height, int width);
 void initialize_snake(int grid_width, int grid_height);
 void move_snake(int width, int height);
-
+void extend_snake(int x, int y);
 //extern struct Snake snake;
 
 extern int snake_length;
@@ -47,5 +47,7 @@ void change_direction(int direction);
 struct Snake * get_snake();
 
 int get_score();
+
+void deallocate_snake();
 
 #endif /* Snake_h */
