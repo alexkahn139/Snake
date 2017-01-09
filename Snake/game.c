@@ -11,6 +11,9 @@
 int counter = 0;
 bool game_running = true;
 bool not_paused = true;
+int special_active_counter = 0;
+bool special_active = false;
+
 
 void game_loop(int width, int height){
     while (game_running) {
@@ -19,10 +22,24 @@ void game_loop(int width, int height){
             move_snake(width, height);
             counter++;
             SDL_Delay(100);
-            printf("%i", counter);
-            if (counter > 100) {
+            if (counter >500) {
                 make_apple(height, width, SPECIAL_FOOD);
                 counter = 0;
+                special_active = true;
+            }
+            if (special_active) {
+                special_active_counter++;
+            }
+            if (special_active_counter > 50) {
+                for (int x = 0; x < width; x++) {
+                    for (int y = 0; y < height; y++) {
+                        if (get_cell(x, y)->state == SPECIAL_FOOD) {
+                            get_cell(x, y)->state = NORMAL;
+                        }
+                    }
+                }
+                special_active = false;
+                special_active_counter = 0;
             }
         }
         draw_grid(width, height);
@@ -43,4 +60,6 @@ void pause_game(){
         not_paused = true;
     }
 }
-
+int get_special_active(){
+    return special_active_counter;
+}
