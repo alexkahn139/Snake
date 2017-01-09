@@ -23,7 +23,7 @@ void game_loop(int width, int height);
 extern bool game_running;
 void pause_game();
 bool get_special_active();
-
+void set_special(bool active);
 
 
 

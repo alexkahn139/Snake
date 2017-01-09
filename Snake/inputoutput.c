@@ -154,8 +154,7 @@ void load_special(int grid_height, int grid_width){
         get_cell(x, y)->state=SPECIAL_FOOD;
         fclose(fp);
         remove("specials.txt");
-        bool special = get_special_active();
-        special = true;
+        set_special(true);
         
     }
 }

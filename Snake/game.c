@@ -63,3 +63,6 @@ void pause_game(){
 bool get_special_active(){
     return special_active;
 }
+void set_special(bool active){
+    special_active = active;
+}
