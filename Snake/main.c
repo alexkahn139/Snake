@@ -30,6 +30,7 @@ int main(int argc, char *argv[]) {
         load_snake_state(height, width);
         load_walls(height, width);
         load_apple(height, width);
+        load_special(height, width);
         
         initialize_gui(height, width);
         game_loop(width, height);

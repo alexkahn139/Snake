@@ -60,6 +60,6 @@ void pause_game(){
         not_paused = true;
     }
 }
-int get_special_active(){
-    return special_active_counter;
+bool get_special_active(){
+    return special_active;
 }

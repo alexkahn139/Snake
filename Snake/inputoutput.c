@@ -82,6 +82,20 @@ void save_apples_state(int grid_height, int grid_width){
     close_file();
 }
 
+void save_special_state(int grid_height, int grid_width){
+    fp=fopen("specials.txt", "w+");
+    for (int y = 0; y< grid_height; y++) {      // De coordinaten van de special opslaan
+        for (int x = 0; x < grid_width; x++){
+            if (get_cell(x, y)->state == SPECIAL_FOOD){
+                fprintf(fp, "%i", x);
+                fputs(" ", (FILE*)fp);
+                fprintf(fp, "%i", y);
+            }
+        }
+    }
+    close_file();
+}
+
 void load_snake_state(int grid_height, int grid_width){
     allocate_snake(grid_height, grid_width);
     if (fp == fopen ("snake.txt","r")){
@@ -124,6 +138,18 @@ void load_apple(int grid_height, int grid_width){
     }
     else{
         make_apple(grid_height, grid_width, APPLE);
+    }
+}
+void load_special(int grid_height, int grid_width){
+    if (fp == fopen ("specials.txt","r")){
+        fp=fopen("specials.txt", "r+");
+        fscanf(fp, "%s", buff);
+        int x = atoi(buff);
+        fscanf(fp, "%s",buff);
+        int y = atoi(buff);
+        get_cell(x, y)->state=SPECIAL_FOOD;
+        fclose(fp);
+        remove("apples.txt");
     }
 }
 void load_walls(int grid_height, int grid_width){

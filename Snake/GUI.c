@@ -81,7 +81,7 @@ void draw_snake_head(){
     offset.x = x*IMAGE_WIDTH;
     offset.y = y*IMAGE_HEIGHT;
     
-    SDL_BlitSurface(images[HEAD], NULL, window, &offset);
+    SDL_BlitSurface(images[TAIL], NULL, window, &offset);
 }
 void draw_grid(int width, int height) {
     
@@ -154,6 +154,9 @@ void read_input(int width, int height, bool game_running) {
                     // De speler wil het spel afsluiten.
                     save_snake_state(height, width);
                     save_apples_state(height, width);
+                    if (get_special_active()){
+                        save_special_state(height, width);
+                    }
                     deallocate_grid(width, height);
                     deallocate_snake();
                     exit(1);

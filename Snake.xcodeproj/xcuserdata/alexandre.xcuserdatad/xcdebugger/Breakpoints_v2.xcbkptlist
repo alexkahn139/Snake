@@ -288,12 +288,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Snake/gui.c"
-            timestampString = "505664689.849684"
+            timestampString = "505666957.457164"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
             landmarkName = "initialize_window()"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Snake/game.c"
+            timestampString = "505666788.215153"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "get_special_active()"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
