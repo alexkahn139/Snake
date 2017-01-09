@@ -101,6 +101,11 @@ void check_apple(int width, int height, int x, int y){
         eat_apple(x, y, width,height);
         score = score + 10;
     }
+    else if (get_cell(x, y)->state == SPECIAL_FOOD){
+        snake_eat(x, y);
+        score = score + 20;
+        get_cell(x, y)->state = NORMAL;
+    }
 }
 
 void check_wall(){

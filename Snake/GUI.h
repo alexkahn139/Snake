@@ -35,6 +35,7 @@ enum Type_bitmap{
     APPLE_TILE,
     HEAD,
     TAIL,
-    COVERED
+    COVERED,
+    SPECIAL_TILE
 };
 #endif /* GUI_H_ */

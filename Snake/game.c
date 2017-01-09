@@ -17,7 +17,13 @@ void game_loop(int width, int height){
         read_input(width, height, game_running);
         if (not_paused){
             move_snake(width, height);
+            counter++;
             SDL_Delay(100);
+            printf("%i", counter);
+            if (counter > 100) {
+                make_apple(height, width, SPECIAL_FOOD);
+                counter = 0;
+            }
         }
         draw_grid(width, height);
     }

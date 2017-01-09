@@ -45,7 +45,7 @@ void stop_gui() {
     SDL_Quit();
 }
 
-SDL_Surface* images[4];
+SDL_Surface* images[5];
 
 void draw_cell(int x, int y, int kleur){
     SDL_Rect offset;
@@ -97,6 +97,9 @@ void draw_grid(int width, int height) {
             }
             else if ((get_cell(x, y)->state) == APPLE){
                 draw_cell(x, y, APPLE_TILE);
+            }
+            else if ((get_cell(x, y)->state) == SPECIAL_FOOD){
+                draw_cell(x, y, SPECIAL_TILE);
             }
             else draw_cell(x, y, COVERED);
         }
@@ -206,6 +209,7 @@ void initialize_figures() {
     images[HEAD] = SDL_LoadBMP("/Users/alexandre/Dropbox/CW/Structuur2/Snake/Snake/Snake/Images/head.bmp");
     images[TAIL] = SDL_LoadBMP("Images/tail.bmp");
     images[COVERED] = SDL_LoadBMP("Images/covered.bmp");
+    images[SPECIAL_TILE] = SDL_LoadBMP("Images/special.bmp");
 }
 /*
  * Initialiseer het venster.

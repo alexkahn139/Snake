@@ -34,5 +34,5 @@ void deallocate_grid(int grid_width, int grid_height);
  */
 struct Cell *get_cell(int x, int y);
 void eat_apple(int x, int y, int grid_height, int grid_width);
-void make_apple(int grid_height, int grid_width);
+void make_apple(int grid_height, int grid_width, enum State state);
 #endif /* grid_h */

@@ -63,14 +63,14 @@ static struct Coordinate* generate_walls(int grid_width, int grid_height){
     }
     return coordinates_of_walls;
 }
-void place_apple(struct Coordinate apple_coordinates[], int grid_width, int grid_height){
+void place_apple(struct Coordinate apple_coordinates[], int grid_width, int grid_height, enum State state){
     if (get_cell(apple_coordinates[1].x, apple_coordinates[1].y)->state == WALL){
         struct Coordinate *apple_coordinates = generate_random_apple(grid_width-1, grid_height-1);
-        place_apple(apple_coordinates, grid_width, grid_height);
+        place_apple(apple_coordinates, grid_width, grid_height, state);
         free(apple_coordinates);
     }
     else{
-        get_cell(apple_coordinates[1].x, apple_coordinates[1].y)->state = APPLE;
+        get_cell(apple_coordinates[1].x, apple_coordinates[1].y)->state = state;
         
     }
 }
@@ -86,9 +86,9 @@ void make_walls(int grid_height, int grid_width){
     place_walls(wall_coordinates, nr_of_walls);
     free(wall_coordinates);
 }
-void make_apple(int grid_height, int grid_width){
+void make_apple(int grid_height, int grid_width, enum State state){
     struct Coordinate *apple_coordinates = generate_random_apple(grid_width-1, grid_height-1);
-    place_apple(apple_coordinates, grid_width, grid_height);
+    place_apple(apple_coordinates, grid_width, grid_height, state);
     free(apple_coordinates);
 }
 void initialize_grid(int grid_height, int grid_width){
@@ -100,8 +100,10 @@ void initialize_grid(int grid_height, int grid_width){
 }
 
 void eat_apple(int x, int y, int grid_height, int grid_width){
+    if (get_cell(x, y)->state == APPLE){
+        make_apple(grid_height, grid_width, APPLE);
+    }
     get_cell(x, y)->state = NORMAL;
-    make_apple(grid_height, grid_width);
 }
 
 void deallocate_grid(int grid_width, int grid_height){

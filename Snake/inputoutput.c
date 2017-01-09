@@ -123,7 +123,7 @@ void load_apple(int grid_height, int grid_width){
         remove("apples.txt");
     }
     else{
-        make_apple(grid_height, grid_width);
+        make_apple(grid_height, grid_width, APPLE);
     }
 }
 void load_walls(int grid_height, int grid_width){
