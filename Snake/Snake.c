@@ -22,6 +22,9 @@ int score = 0;
 int get_score(){
     return score;
 }
+void set_score(int new){
+    score = new;
+}
 
 void allocate_snake(int height, int width){
     snake = malloc(sizeof(struct Snake *));

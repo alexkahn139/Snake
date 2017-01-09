@@ -65,6 +65,8 @@ void save_snake_state(int grid_height, int grid_width){
         fprintf( fp,"%i",current->coordinates->y);
         current = current->next;
     }
+    fputs(" ", fp);
+    fprintf(fp, "%i", get_score()); //Hier omdat de score enkel moet bijgehouden worden als de slang ook opgeslagen wordt
 }
 
 
@@ -118,6 +120,8 @@ void load_snake_state(int grid_height, int grid_width){
             int y = atoi(buff);
             extend_snake(x, y);
         }
+        fscanf(fp, "%s", buff);
+        set_score(atoi(buff));
         fclose(fp);
         remove("snake.txt");
     }
@@ -149,7 +153,10 @@ void load_special(int grid_height, int grid_width){
         int y = atoi(buff);
         get_cell(x, y)->state=SPECIAL_FOOD;
         fclose(fp);
-        remove("apples.txt");
+        remove("specials.txt");
+        bool special = get_special_active();
+        special = true;
+        
     }
 }
 void load_walls(int grid_height, int grid_width){

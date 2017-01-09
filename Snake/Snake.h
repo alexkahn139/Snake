@@ -49,7 +49,7 @@ void change_direction(int direction);
 struct Snake * get_snake();
 
 int get_score();
-
+void set_score(int new);
 void deallocate_snake();
 
 #endif /* Snake_h */
