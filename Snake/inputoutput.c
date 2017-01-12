@@ -54,7 +54,7 @@ void update_highscore(int score){
 void save_snake_state(int grid_height, int grid_width){
     fp=fopen("snake.txt", "w+");
     fprintf(fp, "%i",snake_length);
-    struct Snake *snake = get_snake();
+    struct Snake *snake = get_snake(1);
     fputs(" ", (FILE*)fp);
     fprintf(fp, "%i", snake->direction);
     struct Bodypart * current = snake->snakebody;
@@ -99,26 +99,26 @@ void save_special_state(int grid_height, int grid_width){
 }
 
 void load_snake_state(int grid_height, int grid_width){
-    allocate_snake(grid_height, grid_width);
+    //struct Snake * snake = get_snake(1);
+    allocate_snake(grid_height, grid_width, 1);
     if (fp == fopen ("snake.txt","r")){
         fp=fopen("snake.txt", "r+");
-        struct Snake *snake = get_snake();
         fscanf(fp, "%s",buff);
         snake_length = atoi(buff);
         fscanf(fp,"%s",buff);
         int direction=atoi(buff);
-        snake->direction = direction;
+        get_snake(1)->direction = direction;
         fscanf(fp, "%s", buff);
-        snake->snakebody->coordinates->x = atoi(buff); //Eerste moeten de coordinaten van verandert worden, rest moet gealloceerd worden
+        get_snake(1)->snakebody->coordinates->x = atoi(buff); //Eerste moeten de coordinaten van verandert worden, rest moet gealloceerd worden
         fscanf(fp, "%s", buff);
-        snake->snakebody->coordinates->y = atoi(buff);
+        get_snake(1)->snakebody->coordinates->y = atoi(buff);
         for (int i = 1; i < snake_length; i++) {
             //struct Bodypart * current = snake->snakebody;
             fscanf(fp, "%s", buff);
             int x = atoi(buff);
             fscanf(fp, "%s", buff);
             int y = atoi(buff);
-            extend_snake(x, y);
+            extend_snake(x, y, 1);
         }
         fscanf(fp, "%s", buff);
         set_score(atoi(buff));
@@ -126,7 +126,7 @@ void load_snake_state(int grid_height, int grid_width){
         remove("snake.txt");
     }
     else{
-        initialize_snake(grid_height, grid_width);
+        initialize_snake(grid_height, grid_width, 1);
     }
 }
 void load_apple(int grid_height, int grid_width){

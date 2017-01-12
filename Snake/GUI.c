@@ -58,7 +58,7 @@ void draw_cell(int x, int y, int kleur){
 void draw_snake_part(){
     SDL_Rect offset;
     //struct Coordinate coordinates = get_coordinates(part);
-    struct Snake * snake = get_snake();
+    struct Snake * snake = get_snake(1);
     struct Bodypart * current = snake->snakebody;
     if (current!= NULL) {
         while (current->next != NULL) {
@@ -70,18 +70,41 @@ void draw_snake_part(){
             SDL_BlitSurface(images[TAIL], NULL, window, &offset);
         }
     }
-    
+    if (get_nr_of_snakes() == 2) {
+        snake = get_snake(2);
+        current = get_snake(2)->snakebody;
+        if (current!= NULL) {
+            while (current->next != NULL) {
+                int x = current->coordinates->x;
+                int y = current->coordinates->y;
+                offset.x = x*IMAGE_WIDTH;
+                offset.y = y*IMAGE_HEIGHT;
+                current = current->next;
+                SDL_BlitSurface(images[TAIL], NULL, window, &offset);
+            }
+        }
+    }
 }
 void draw_snake_head(){
     SDL_Rect offset;
     //struct Coordinate coordinates = get_coordinates(0);
-    struct Snake snake = * get_snake();
+    struct Snake snake = * get_snake(1);
     int x = snake.snakebody->coordinates->x;
     int y = snake.snakebody->coordinates->y;
     offset.x = x*IMAGE_WIDTH;
     offset.y = y*IMAGE_HEIGHT;
     
     SDL_BlitSurface(images[TAIL], NULL, window, &offset);
+    
+    if (get_nr_of_snakes() == 2){
+        snake = * get_snake(2);
+        int x = snake.snakebody->coordinates->x;
+        int y = snake.snakebody->coordinates->y;
+        offset.x = x*IMAGE_WIDTH;
+        offset.y = y*IMAGE_HEIGHT;
+        
+        SDL_BlitSurface(images[TAIL], NULL, window, &offset);
+    }
 }
 void draw_grid(int width, int height) {
     
@@ -158,27 +181,54 @@ void read_input(int width, int height, bool game_running) {
                         save_special_state(height, width);
                     }
                     deallocate_grid(width, height);
-                    deallocate_snake();
+                    deallocate_snake(1);
+                    deallocate_snake(2);
                     exit(1);
                 case SDL_KEYDOWN:
                     if (event.key.keysym.sym == SDLK_UP){
                         // De speler heeft op de P toets gedrukt.
-                        change_direction(UP);
+                        change_direction(UP, 1);
                     }
                     else if (event.key.keysym.sym == SDLK_DOWN){
                         // De speler heeft op de P toets gedrukt.
-                        change_direction(DOWN);
+                        change_direction(DOWN, 1);
                     }
                     else if (event.key.keysym.sym == SDLK_RIGHT){
                         // De speler heeft op de P toets gedrukt.
-                        change_direction(RIGHT);
+                        change_direction(RIGHT, 1);
                     }
                     else if (event.key.keysym.sym == SDLK_LEFT){
                         // De speler heeft op de P toets gedrukt.
-                        change_direction(LEFT);
+                        change_direction(LEFT, 1);
                     }
                     else if (event.key.keysym.sym == SDLK_p){
                         pause_game();
+                    }
+                    
+                    // Voor een 2e speler
+                    else if (event.key.keysym.sym == SDLK_w){
+                        if (get_nr_of_snakes() == 1) {
+                            allocate_snake(height, width, 2);
+                            initialize_snake(width, height, 2);
+                        }
+                        else{
+                            change_direction(UP, 2);
+                        }
+                    }
+                    else if (event.key.keysym.sym == SDLK_s){
+                        if (get_nr_of_snakes() == 2) {
+                            change_direction(DOWN, 2);
+                        }
+                    }
+                    else if (event.key.keysym.sym == SDLK_d){
+                        if (get_nr_of_snakes() == 2){
+                            change_direction(RIGHT, 2);
+                        }
+                    }
+                    else if (event.key.keysym.sym == SDLK_a){
+                        if (get_nr_of_snakes() == 2) {
+                            change_direction(LEFT, 2);
+                        }
                     }
                 default:
                     // De speler heeft op een andere toets gedrukt.

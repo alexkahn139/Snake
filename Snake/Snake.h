@@ -29,27 +29,30 @@ struct Coordinate{
 struct Snake{
     struct Bodypart * snakebody;
     enum Direction direction;
+    //int length = 1;
 };
 struct Bodypart{
     struct Coordinate * coordinates;
     struct Bodypart * next;
 };
-void allocate_snake(int height, int width);
-void initialize_snake(int width, int height);
-void move_snake(int width, int height);
-void extend_snake(int x, int y);
+void allocate_snake(int height, int width, int snake_nr);
+void initialize_snake(int width, int height, int snake_nr);
+void move_snakes(int width, int height);
+void extend_snake(int x, int y, int snake_nr);
 //extern struct Snake snake;
 
 extern int snake_length;
 
 struct Coordinate get_coordinates(int part);
 
-void change_direction(int direction);
+void change_direction(int direction, int snake_nr);
 
-struct Snake * get_snake();
+struct Snake * get_snake(int nr);
 
 int get_score();
 void set_score(int new);
-void deallocate_snake();
+void deallocate_snake(int snake_nr);
+
+int get_nr_of_snakes();
 
 #endif /* Snake_h */

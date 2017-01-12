@@ -19,7 +19,7 @@ void game_loop(int width, int height){
     while (game_running) {
         read_input(width, height, game_running);
         if (not_paused){
-            move_snake(width, height);
+            move_snakes(width, height);
             counter++;
             SDL_Delay(100);
             if (counter >500) {
@@ -45,7 +45,8 @@ void game_loop(int width, int height){
         draw_grid(width, height);
     }
     save_to_file();
-    deallocate_snake();
+    deallocate_snake(1);
+    deallocate_snake(2);
     deallocate_grid(width, height);
     while(1){
         read_input(width, height, game_running);
