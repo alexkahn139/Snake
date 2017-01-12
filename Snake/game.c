@@ -17,11 +17,13 @@ bool special_active = false;
 
 void game_loop(int width, int height){
     while (game_running) {
+        int delay = 100;
         read_input(width, height, game_running);
         if (not_paused){
             move_snakes(width, height);
+            delay = delay - floor(get_score()/100); // Kind of level system, every time the score gets higher the speed goes up
             counter++;
-            SDL_Delay(100);
+            SDL_Delay(delay);
             if (counter >500) {
                 make_apple(height, width, SPECIAL_FOOD);
                 counter = 0;
