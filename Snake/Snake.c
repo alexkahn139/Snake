@@ -165,13 +165,13 @@ void check_bodyparts_collision(){
     int x_co = snake_head1.coordinates->x;
     int y_co = snake_head1.coordinates->y;
     bool snake_1_no_collision = true;
-    game_running = check_bodyparts_loop(x_co, y_co, 1);    //Start at 2 because the head can't collide with itself
+    game_running = check_bodyparts_loop(x_co, y_co, 1);
     if (nr_of_snakes == 2){
         snake_1_no_collision = check_bodyparts_loop(x_co, y_co, 1) && check_bodyparts_loop(x_co, y_co, 2);
         int x_co_2 = snake_head2.coordinates->x;
         int y_co_2 = snake_head2.coordinates->y;
-        game_running = x_co != x_co_2 &&
-        y_co != y_co_2 &&
+        bool heads_collision = x_co == x_co_2 && y_co == y_co_2;
+        game_running =  !heads_collision &&
         check_bodyparts_loop(x_co_2, y_co_2, 1) &&
         check_bodyparts_loop(x_co_2, y_co_2, 2) &&
         snake_1_no_collision;
