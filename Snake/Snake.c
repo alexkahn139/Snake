@@ -148,7 +148,7 @@ void check_wall(){
     }
 }
 
-bool check_bodyparts_loop(int x, int y, int i, int snake_nr){
+bool check_bodyparts_loop(int x, int y, int snake_nr){
     struct Bodypart * current = get_snake(snake_nr)->snakebody->next; //Anders checkt die de head
     bool no_collision = true;
     while (current != NULL) {
@@ -164,8 +164,18 @@ bool check_bodyparts_loop(int x, int y, int i, int snake_nr){
 void check_bodyparts_collision(){
     int x_co = snake_head1.coordinates->x;
     int y_co = snake_head1.coordinates->y;
-    game_running = check_bodyparts_loop(x_co, y_co, 2, 1);    //Start at 2 because the head can't collide with itself
-    if
+    bool snake_1_no_collision = true;
+    game_running = check_bodyparts_loop(x_co, y_co, 1);    //Start at 2 because the head can't collide with itself
+    if (nr_of_snakes == 2){
+        snake_1_no_collision = check_bodyparts_loop(x_co, y_co, 1) && check_bodyparts_loop(x_co, y_co, 2);
+        int x_co_2 = snake_head2.coordinates->x;
+        int y_co_2 = snake_head2.coordinates->y;
+        game_running = x_co != x_co_2 &&
+        y_co != y_co_2 &&
+        check_bodyparts_loop(x_co_2, y_co_2, 1) &&
+        check_bodyparts_loop(x_co_2, y_co_2, 2) &&
+        snake_1_no_collision;
+    }
 }
 
 void move_tail(int snake_nr){
