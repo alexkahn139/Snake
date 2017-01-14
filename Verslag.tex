@@ -1,0 +1,110 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage[dutch]{babel}
+
+\title{Project Structuur van Computerprogrammas 2}
+\author{Alexandre Kahn \\
+			alexandre.kahn@vub.be\\
+			500067 \\
+			BA Computerwetenschappen \\
+			Faculteit Wetenschappen en Bio-ingenieurswetenschappen}
+%\date{}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Inleiding}  
+Voor dit project moesten we onze eigen versie van Snake implementeren. Een deel van mijn code heb ik gebaseerd op de taak waar we Minesweeper moesten schrijven. Zo is leunt een deel van de implementatie op de grid die we voor minesweeper hadden, dit maakt het gemakkelijk om met absolute co\"{o}rdinaten te werken en de appel op de nodige plekken te laten verschijnen. De gegevens worden weggeschreven naar .txt bestanden, net zoals in mijnenveger ook al moest gebeuren. Ook is de grafische interface en de user input gelijkaardig aan de vorige taak. 
+\section{Design}
+	\subsection{Grid}
+	De grid is een struct die verschillende staten kan hebben. Zo kan deze een \texttt{APPLE, SPECIAL\_APPLE, WALL} of \texttt{NORMAL} zijn. De implementatie is gebaseerd op die van de taak, dit omdat het zo zeer overzichtelijk was waar alles zich bevond en ik zo gebruik maak van abstracte co\"{o}rdinaten. De appel wordt steeds, nadat deze opgegeten is opnieuw op een willekeurige plaats gegenereerd, terwijl de speciale appel dezelfde code gebruikt om ook aangemaakt te worden. De muren worden ook in de grid geplaatst, deze worden uit een bestand geladen en dan correct aangepast. Door aanpassingen in dat bestand te maken is het mogelijk om de muren aan te passen. 
+	\subsection{Snake}
+	De slang is na lang zoeken een gelinkte lijst geworden. Eerst was mijn plan hier een array van te maken, en deze elke keer dat de slang groeit te heralloceren. Het probleem was echter dat de \texttt{realloc} functie het geheugen niet bijhield. Zo gebeurde het dat de geheugen adressen verplaatst werden en dat men de inhoud van deze cellen verloor. Een oplossing was om steeds de geheugeninhoud te overschrijven, maar dit was niet echt effici\"{e}nt. Bij gelinkte lijsten hebben we dit probleem niet. De slang wordt elke keer dat hij groeit langer. Bij het afsluiten van het spel wordt het gebruikte geheugen ook vrij gegeven. Dit is belangrijk om memory leaks te voorkomen. \\
+	Een laatste toevoeging is het mogelijk te maken om met 2 te spelen. Deze code had zeker wat mooier kunnen zijn, mits ik meer tijd had om het project af te maken. Het werkt door bij op de W toets (op een qwerty toetsenbord) te klikken. Dan wordt de 2e slang gealloceerd en opgestart. Ook begint deze direct te bewegen en reageert deze op de input van de WASD-toetsen. 
+	\subsection{GUI}
+	De GUI initialiseert bij het opstarten al de grafische zaken. Zo zal het venster met het speelveld, de slang, muren en een appel verschijnen. De score wordt met de \texttt{SDL\_TTF} library ook weergegeven. Dit is momenteel in de linkerbovenhoek waar het niet teveel stoort, maar zou in een verder uitgewerkte implementatie bijvoorbeeld in een extra balk aan de zijkant kunnen staan. \\
+	SDL wordt ook gebruikt voor de user input. De functie \texttt{read\_input} doet dit. Hier had ik enkele problemen met de switch case structuur dus heb ik bepaalde zaken door een if, else if veranderd. Zo krijg ik geen problemen dat een toetsaanslag voor meerdere zaken telt.  \\
+	Elke speltick wordt het speelveld opnieuw getekend. Dit begint met eerst elke cel, die een vakje, een appel of een muur kan zijn. Daarboven wordt de slang getekend. \\
+	\subsection{I/O}
+	Hieronder vallen verschillende functies. Zo wordt de highscore steeds geladen indien deze file al bestaat. Deze wordt op het einde van elk spel overschreven indien dit nodig is. 
+	Aan het begin van elk level wordt de staat van de muren ingeladen, hier zorgt de \texttt{load\_walls} functie voor. Bij het opstarten wordt er tevens gezien of er nog een een opgeslagen spel is. Indien dit het geval wordt dat geladen in plaats van een nieuw spel ge\"{i}nitialiseerd, deze files wordt dan verwijderd door diezelfde functie. \\
+	Als het spel wordt afgesloten zonder dat de speler dood is wordt alles ook netjes in een bestand opgeslagen. Zowel de locatie van de appel als de locatie en lengte van de slang worden dan opgeslagen. 
+	\subsection{Gameloop}
+	De gameloop wordt door de main opgeroepen en blijft runnen zolang er niet op P (voor pauze) is geklikt of dat de speler dood is. In deze functie wordt er ook op bepaalde tijdsintervallen de speciale appel geactiveerd. Deze zal dan voor een aantal seconden op het scherm blijven, alvorens de functie deze weghaalt indien deze niet opgegeten was.\\
+	Er is ook een functie om het spel te pauzeren, deze zet de staat van het spel omgekeerd aan wat deze hiervoor was. 
+\section{Testing}
+Het spel is zeer clich\'{e}matig getest door het te spelen. Dit is een van de beste manieren volgens mij om te zien dat het in een normaal geval correct verloopt. Verder heb ik ook steeds in implementatiefases getest, zo ging ik steeds na of het nieuwe stuk naar behoren werkte voor ik er een ander stuk bij deed. \\
+Voor het spel op te slaan heb ik eerst na gegaan of de output werkte, dit door screenshots te nemen van het speelveld en dan na te gaan of alles klopte. Toen de functies voor het importeren ook werkten heb ik dan natuurlijk getest of alles werkte, door ook zelf zaken in de file aan te passen en te zien hoe het spel daarop reageerde. \\
+Tot slot heb ik naar potenti\"{e}le memory leaks gezocht. Hiervoor heb ik het programma Instruments dat een onderdeel van Xcode is gebruikt, Valgrind kreeg ik jammer genoeg niet werkende op de nieuwste versie van MacOS.
+\section{Code}
+ \subsection{Main.c}
+Bevat: \\
+\texttt{int main(int argc, char *argv[])}
+\subsection{input\_output.c}
+Bevat: \\
+\texttt{void open\_file()} \\
+\texttt{void close\_file()} \\
+\texttt{void save\_to\_file()} \\
+\texttt{void update\_highscore(int score)} \\
+\texttt{void save\_snake\_state(int grid\_height, int grid\_width)} \\
+\texttt{void save\_apples\_state(int grid\_height, int grid\_width} \\
+\texttt{void load\_snake\_state(int grid\_height, int grid\_width)} \\
+\texttt{void load\_apple(int grid\_height, int grid\_width)} \\
+\texttt{void load\_walls(int grid\_height, int grid\_width)} \\
+\texttt{void change\_direction(int direction, int snake\_nr)} \\
+\texttt{struct Snake * get\_snake(int nr)} \\
+\texttt{int get\_nr\_of\_snakes()}
+\subsection{game.c}
+Bevat:
+\texttt{void game\_loop(int width, int height)} \\
+\texttt{void pause\_game()} \\
+\subsection{snake.c}
+Bevat: \\
+\texttt{int get\_score()} \\
+\texttt{void set\_score(int new)} \\
+\texttt{void allocate\_snake(int height, int width, int snake\_nr)} \\
+\texttt{void initialize\_snake(int width, int height, int snake\_nr} \\
+\texttt{void deallocate\_snake(snake\_nr)} \\
+\texttt{void extend\_snake(int x, int y, int snake\_nr} \\
+\texttt{void snake\_eat(int x, int y, int snake\_nr)} \\
+\texttt{void move\_head(int width, int height, int snake\_nr)} \\
+\texttt{void check\_apple(int width, int height, int x, int y, int snake\_nr)} \\
+\texttt{void check\_wall()} \\
+\texttt{bool check\_bodyparts\_loop(int x, int y, int snake\_nr)} \\
+\texttt{void check\_bodyparts\_collision()} \\
+\texttt{void move\_tail(int snake\_nr)} \\
+\texttt{void move\_snakes(int width, int height)} \\
+
+\subsection{gui.c}
+Bevat: \\
+\texttt{void drawText(SDL\_Surface* screen, char* string, int size, int x, int y)} \\
+\texttt{void stop\_gui()} \\
+\texttt{void draw\_cell(int x, int y, int kleur)} \\ 
+\texttt{void draw\_snake\_part(int part)} \\
+\texttt{void draw\_snake\_head()} \\
+\texttt{void draw\_grid(int width, int height)} \\
+\texttt{void draw\_game\_over(int width, int height)} \\
+\texttt{void read\_input(int width, int height, bool game\_running)} \\
+\texttt{void initialize\_figures()} \\
+\texttt{void initialize\_window(char *title, int grid\_width, int grid\_height) } \\
+\texttt{void initialize\_gui(int grid\_width, int grid\_height)} \\
+\subsection{grid.c}
+Bevat: \\
+\texttt{struct Cell *** allocate\_grid(int grid\_width, int grid\_height)} \\
+\texttt{static struct Coordinate* generate\_random\_apple(int grid\_width, int grid\_height)} \\
+\texttt{static struct Coordinate* generate\_walls(int grid\_width, int grid\_height)} \\
+\texttt{void place\_apple(struct Coordinate apple\_coordinates[], int grid\_width, int grid\_height)} \\
+\texttt{void place\_walls(struct Coordinate wall\_coordinates[], int nr\_of\_walls)} \\
+\texttt{void make\_walls(int grid\_height, int grid\_width)}\\
+\texttt{void make\_apple(int grid\_height, int grid\_width)} \\
+\texttt{void initialize\_grid(int grid\_height, int grid\_width)} \\
+
+
+\end{document}

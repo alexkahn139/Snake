@@ -57,7 +57,6 @@ void draw_cell(int x, int y, int kleur){
 }
 void draw_snake_part(){
     SDL_Rect offset;
-    //struct Coordinate coordinates = get_coordinates(part);
     struct Snake * snake = get_snake(1);
     struct Bodypart * current = snake->snakebody;
     if (current!= NULL) {
@@ -87,7 +86,6 @@ void draw_snake_part(){
 }
 void draw_snake_head(){
     SDL_Rect offset;
-    //struct Coordinate coordinates = get_coordinates(0);
     struct Snake snake = * get_snake(1);
     int x = snake.snakebody->coordinates->x;
     int y = snake.snakebody->coordinates->y;
@@ -155,7 +153,6 @@ void draw_game_over(int width, int height){
 void read_input(int width, int height, bool game_running) {
     
     SDL_Event event;
-    //printf("Sdl OK \n");
     
     
     /*
@@ -171,7 +168,6 @@ void read_input(int width, int height, bool game_running) {
      */
     if (game_running){
         while (SDL_PollEvent(&event)) {
-            //printf("1e regel while \n");
             switch (event.type) {
                 case SDL_QUIT:
                     // De speler wil het spel afsluiten.
@@ -186,19 +182,15 @@ void read_input(int width, int height, bool game_running) {
                     exit(1);
                 case SDL_KEYDOWN:
                     if (event.key.keysym.sym == SDLK_UP){
-                        // De speler heeft op de P toets gedrukt.
                         change_direction(UP, 1);
                     }
                     else if (event.key.keysym.sym == SDLK_DOWN){
-                        // De speler heeft op de P toets gedrukt.
                         change_direction(DOWN, 1);
                     }
                     else if (event.key.keysym.sym == SDLK_RIGHT){
-                        // De speler heeft op de P toets gedrukt.
                         change_direction(RIGHT, 1);
                     }
                     else if (event.key.keysym.sym == SDLK_LEFT){
-                        // De speler heeft op de P toets gedrukt.
                         change_direction(LEFT, 1);
                     }
                     else if (event.key.keysym.sym == SDLK_p){
@@ -241,7 +233,6 @@ void read_input(int width, int height, bool game_running) {
     }
     else{
         while (SDL_PollEvent(&event)) {
-            //printf("1e regel while \n");
             switch (event.type) {
                 case SDL_QUIT:
                     exit(1);
@@ -280,7 +271,6 @@ void initialize_window(char *title, int grid_width, int grid_height) {
     int window_width = grid_width * IMAGE_WIDTH;
     int window_height = grid_height * IMAGE_HEIGHT;
     window = SDL_SetVideoMode(window_width, window_height, 0, SDL_HWPALETTE | SDL_DOUBLEBUF);
-    //font = TTF_OpenFont("arial.ttf", 12);
     if (window == NULL) {
         printf("Couldn't set screen mode to required dimensions: %s\n", SDL_GetError());
         exit(1);
@@ -295,7 +285,6 @@ void initialize_gui(int grid_width, int grid_height) {
     initialize_figures();
     SDL_Event event;
     SDL_PollEvent(&event);
-    //draw_game_over(grid_width, grid_height);
     atexit(stop_gui);
 }
 

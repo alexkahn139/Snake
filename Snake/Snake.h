@@ -29,7 +29,6 @@ struct Coordinate{
 struct Snake{
     struct Bodypart * snakebody;
     enum Direction direction;
-    //int length = 1;
 };
 struct Bodypart{
     struct Coordinate * coordinates;
@@ -39,7 +38,6 @@ void allocate_snake(int height, int width, int snake_nr);
 void initialize_snake(int width, int height, int snake_nr);
 void move_snakes(int width, int height);
 void extend_snake(int x, int y, int snake_nr);
-//extern struct Snake snake;
 
 extern int snake_length;
 

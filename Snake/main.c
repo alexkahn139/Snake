@@ -35,7 +35,6 @@ int main(int argc, char *argv[]) {
         initialize_gui(height, width);
         game_loop(width, height);
         
-        //while (1) { read_input(width, height); }
     }
     else {
         printf("You need to give 2 arguments \n");
